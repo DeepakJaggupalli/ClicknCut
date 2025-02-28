@@ -11,7 +11,7 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trash2, ShoppingBag, CreditCard } from "lucide-react";
+import { Trash2, ShoppingBag, CreditCard, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +20,7 @@ const Cart = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleCheckout = () => {
     setIsProcessing(true);
@@ -27,15 +28,50 @@ const Cart = () => {
     // Simulate checkout process
     setTimeout(() => {
       setIsProcessing(false);
+      setOrderPlaced(true);
       clearCart();
       toast({
         title: "Order placed successfully!",
         description: "Thank you for your purchase. We'll process your order soon.",
         variant: "default",
       });
-      navigate("/");
+      
+      // Reset order placed state after animation completes
+      setTimeout(() => {
+        setOrderPlaced(false);
+        navigate("/products");
+      }, 3000);
     }, 1500);
   };
+
+  if (orderPlaced) {
+    return (
+      <div className="container mx-auto px-4 py-20">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center py-16"
+        >
+          <motion.div 
+            initial={{ scale: 0.5 }}
+            animate={{ scale: [0.5, 1.2, 1] }}
+            transition={{ duration: 0.7, times: [0, 0.5, 1] }}
+            className="rounded-full bg-green-100 p-4 w-24 h-24 mx-auto mb-6 flex items-center justify-center"
+          >
+            <Check className="h-12 w-12 text-green-600" />
+          </motion.div>
+          <h2 className="text-3xl font-bold mb-4">Order Placed Successfully!</h2>
+          <p className="text-muted-foreground mb-8">
+            Thank you for shopping with Click N Cut. Your order has been received and is being processed.
+          </p>
+          <Button onClick={() => navigate("/products")} className="mt-4">
+            Continue Shopping
+          </Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -99,7 +135,7 @@ const Cart = () => {
                       </div>
                       <div className="flex items-center space-x-4">
                         <span className="font-medium">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ₹{(item.price * item.quantity).toFixed(2)}
                         </span>
                         <Button
                           variant="ghost"
@@ -137,7 +173,7 @@ const Cart = () => {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${getCartTotal().toFixed(2)}</span>
+                    <span>₹{getCartTotal().toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
@@ -145,11 +181,11 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Tax</span>
-                    <span>${(getCartTotal() * 0.1).toFixed(2)}</span>
+                    <span>₹{(getCartTotal() * 0.1).toFixed(2)}</span>
                   </div>
                   <div className="border-t pt-4 flex justify-between font-bold">
                     <span>Total</span>
-                    <span>${(getCartTotal() * 1.1).toFixed(2)}</span>
+                    <span>₹{(getCartTotal() * 1.1).toFixed(2)}</span>
                   </div>
                 </CardContent>
                 <CardFooter>

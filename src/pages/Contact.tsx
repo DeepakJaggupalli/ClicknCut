@@ -74,10 +74,10 @@ const Contact: React.FC = () => {
                     Our team is here to help with any questions about our rentals or services.
                   </p>
                   <a 
-                    href="mailto:info@clickncut.com" 
+                    href="mailto:djaggupa@gitam.in" 
                     className="block mt-3 text-primary hover:underline"
                   >
-                    info@clickncut.com
+                    djaggupa@gitam.in
                   </a>
                 </CardContent>
               </Card>
@@ -94,10 +94,10 @@ const Contact: React.FC = () => {
                     Speak directly with our rental specialists during business hours.
                   </p>
                   <a 
-                    href="tel:+1234567890" 
+                    href="tel:9550366399" 
                     className="block mt-3 text-primary hover:underline"
                   >
-                    +1 (234) 567-890
+                    +91 9550366399
                   </a>
                 </CardContent>
               </Card>
@@ -114,8 +114,8 @@ const Contact: React.FC = () => {
                     Come check out our equipment in person at our showroom.
                   </p>
                   <address className="not-italic mt-3">
-                    123 Camera Street<br />
-                    Studio City, CA 91604
+                    GITAM University<br />
+                    Visakhapatnam, Andhra Pradesh
                   </address>
                 </CardContent>
               </Card>
