@@ -15,23 +15,23 @@ type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Alex Johnson",
+    name: "Arjun Sharma",
     role: "Professional Photographer",
-    content: "CameraCartopia has been a game-changer for my photography business. Access to high-end equipment without the upfront costs allowed me to take on jobs I wouldn't have been able to otherwise. Their service is impeccable, and the equipment is always in perfect condition.",
+    content: "Click N Cut has been a game-changer for my photography business. Access to high-end equipment without the upfront costs allowed me to take on jobs I wouldn't have been able to otherwise. Their service is impeccable, and the equipment is always in perfect condition.",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg"
   },
   {
     id: 2,
-    name: "Sarah Williams",
+    name: "Priya Patel",
     role: "Indie Filmmaker",
-    content: "As an independent filmmaker, budgets are always tight. CameraCartopia helps me get professional-grade equipment for shoots without breaking the bank. The rental process is seamless, and their team is always helpful with technical questions.",
+    content: "As an independent filmmaker, budgets are always tight. Click N Cut helps me get professional-grade equipment for shoots without breaking the bank. The rental process is seamless, and their team is always helpful with technical questions.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg"
   },
   {
     id: 3,
-    name: "Michael Chen",
+    name: "Vikram Mehta",
     role: "Content Creator",
-    content: "I've been using CameraCartopia for all my YouTube productions. The ability to rent different equipment for different types of shoots gives me creative flexibility I wouldn't have otherwise. Their editing software rentals are also a huge plus!",
+    content: "I've been using Click N Cut for all my YouTube productions. The ability to rent different equipment for different types of shoots gives me creative flexibility I wouldn't have otherwise. Their editing software rentals are also a huge plus!",
     avatar: "https://randomuser.me/api/portraits/men/62.jpg"
   }
 ];

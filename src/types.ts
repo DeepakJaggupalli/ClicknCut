@@ -4,11 +4,11 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  category: "camera" | "lens" | "accessory" | "editing";
+  category: "camera" | "lens" | "accessory" | "editing" | "lighting" | "drone";
   image: string;
   rentalAvailable: boolean;
   features: string[];
   stock: number;
 };
 
-export type Category = "camera" | "lens" | "accessory" | "editing" | "all";
+export type Category = "camera" | "lens" | "accessory" | "editing" | "lighting" | "drone" | "all";

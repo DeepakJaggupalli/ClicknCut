@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useParams, Link, useNavigate } from "react-router-dom";
@@ -21,7 +20,6 @@ import {
 } from "lucide-react";
 import { Product } from "@/types";
 
-// Define the ProductCard component specifically for ProductDetail page
 const ProductCard: React.FC<{ product: Product, index: number }> = ({ product, index }) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -54,21 +52,18 @@ const ProductCard: React.FC<{ product: Product, index: number }> = ({ product, i
               className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
             />
             
-            {/* Category badge */}
             <div className="absolute top-3 left-3">
               <span className="bg-black/60 backdrop-blur-sm text-xs px-2 py-1 rounded-full text-white">
                 {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
               </span>
             </div>
             
-            {/* Price badge */}
             <div className="absolute top-3 right-3">
               <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                ${product.price}/day
+                ₹{product.price}/day
               </span>
             </div>
             
-            {/* Quick actions overlay */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-all duration-300">
               <Button
                 variant="secondary"
@@ -99,7 +94,6 @@ const ProductCard: React.FC<{ product: Product, index: number }> = ({ product, i
               {product.description}
             </p>
             
-            {/* Availability indicator */}
             <div className="flex justify-between items-center">
               <span className="text-xs font-medium">
                 <span className={`inline-block h-2 w-2 rounded-full mr-1 ${product.stock > 0 ? 'bg-green-500' : 'bg-red-500'}`}></span>
@@ -136,7 +130,6 @@ const ProductDetail: React.FC = () => {
 
   useEffect(() => {
     if (!product) {
-      // Product not found, redirect to products page
       navigate("/products");
       toast({
         title: "Product not found",
@@ -146,7 +139,6 @@ const ProductDetail: React.FC = () => {
       return;
     }
 
-    // Find related products (same category, but not this product)
     const related = products
       .filter(p => p.category === product.category && p.id !== product.id)
       .slice(0, 3);
@@ -186,7 +178,7 @@ const ProductDetail: React.FC = () => {
   };
 
   if (!product) {
-    return null; // Will redirect in useEffect
+    return null;
   }
 
   const totalPrice = product.price * quantity * rentalDays;
@@ -194,13 +186,12 @@ const ProductDetail: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} - CameraCartopia</title>
+        <title>{product.name} - Click N Cut</title>
         <meta name="description" content={product.description} />
       </Helmet>
 
       <div className="mt-16 pt-16">
         <div className="container mx-auto px-4 py-8">
-          {/* Breadcrumb */}
           <div className="mb-6">
             <Button
               variant="ghost"
@@ -214,7 +205,6 @@ const ProductDetail: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Product Image */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -236,12 +226,11 @@ const ProductDetail: React.FC = () => {
 
               <div className="absolute top-4 right-4">
                 <span className="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full">
-                  ${product.price}/day
+                  ₹{product.price}/day
                 </span>
               </div>
             </motion.div>
 
-            {/* Product Info */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -255,7 +244,6 @@ const ProductDetail: React.FC = () => {
 
               <p className="text-lg text-muted-foreground mb-6">{product.description}</p>
 
-              {/* Features */}
               <div className="mb-8">
                 <h3 className="text-lg font-semibold mb-3">Key Features</h3>
                 <ul className="space-y-2">
@@ -274,7 +262,6 @@ const ProductDetail: React.FC = () => {
                 </ul>
               </div>
 
-              {/* Stock */}
               <div className="flex items-center mb-6">
                 <div
                   className={`h-3 w-3 rounded-full mr-2 ${
@@ -294,9 +281,7 @@ const ProductDetail: React.FC = () => {
                 </span>
               </div>
 
-              {/* Quantity and Rental Days */}
               <div className="space-y-4 mb-6">
-                {/* Quantity Selector */}
                 <div>
                   <label className="text-sm font-medium mb-2 block">Quantity</label>
                   <div className="flex items-center">
@@ -324,7 +309,6 @@ const ProductDetail: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Rental Days Selector */}
                 {product.rentalAvailable && (
                   <div>
                     <label className="text-sm font-medium mb-2 block">Rental Days</label>
@@ -354,11 +338,10 @@ const ProductDetail: React.FC = () => {
                 )}
               </div>
 
-              {/* Price Calculation */}
               <div className="bg-secondary p-4 rounded-lg mb-6">
                 <div className="flex justify-between mb-2">
                   <span>Base price:</span>
-                  <span>${product.price.toFixed(2)}/day</span>
+                  <span>₹{product.price.toFixed(2)}/day</span>
                 </div>
                 <div className="flex justify-between mb-2">
                   <span>Quantity:</span>
@@ -372,11 +355,10 @@ const ProductDetail: React.FC = () => {
                 )}
                 <div className="border-t border-border pt-2 mt-2 flex justify-between font-bold">
                   <span>Total price:</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>₹{totalPrice.toFixed(2)}</span>
                 </div>
               </div>
 
-              {/* Add to Cart Button */}
               <Button
                 onClick={handleAddToCart}
                 className="w-full bg-primary hover:bg-primary/90 text-white"
@@ -386,7 +368,6 @@ const ProductDetail: React.FC = () => {
                 Add to Cart
               </Button>
 
-              {/* Delivery Estimate */}
               <div className="mt-6 flex items-center text-muted-foreground">
                 <Clock className="h-5 w-5 mr-2" />
                 <span>Expected delivery: 1-3 business days</span>
@@ -394,7 +375,6 @@ const ProductDetail: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold mb-6">Related Products</h2>

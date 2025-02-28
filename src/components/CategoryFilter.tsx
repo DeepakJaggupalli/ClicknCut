@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Category } from "@/types";
-import { Camera, Component, Film, PaintBucket, Grid } from "lucide-react";
+import { Camera, Component, Film, PaintBucket, Grid, Lightbulb, Plane } from "lucide-react";
 
 type CategoryFilterProps = {
   activeCategory: Category;
@@ -15,6 +15,8 @@ const categories: { value: Category; label: string; icon: React.ReactNode }[] = 
   { value: "camera", label: "Cameras", icon: <Camera className="h-4 w-4" /> },
   { value: "lens", label: "Lenses", icon: <Component className="h-4 w-4" /> },
   { value: "accessory", label: "Accessories", icon: <Film className="h-4 w-4" /> },
+  { value: "lighting", label: "Lighting", icon: <Lightbulb className="h-4 w-4" /> },
+  { value: "drone", label: "Drones", icon: <Plane className="h-4 w-4" /> },
   { value: "editing", label: "Editing", icon: <PaintBucket className="h-4 w-4" /> },
 ];
 

@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
             {/* Price badge */}
             <div className="absolute top-3 right-3">
               <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                ${product.price}/day
+                ₹{product.price}/day
               </span>
             </div>
             
