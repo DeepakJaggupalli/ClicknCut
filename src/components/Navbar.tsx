@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
         >
           <Camera className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
           <span className="text-xl font-bold tracking-tight">
-            Camera<span className="text-primary">Cartopia</span>
+            Click<span className="text-primary">N</span> Cut
           </span>
         </Link>
 
@@ -141,7 +141,7 @@ const Navbar: React.FC = () => {
                 <div className="flex justify-between items-center mb-8">
                   <Link to="/" className="flex items-center space-x-2" onClick={() => setIsMobileMenuOpen(false)}>
                     <Camera className="h-6 w-6 text-primary" />
-                    <span className="text-lg font-bold">CameraCartopia</span>
+                    <span className="text-lg font-bold">Click<span className="text-primary">N</span> Cut</span>
                   </Link>
                   <Button
                     variant="ghost"

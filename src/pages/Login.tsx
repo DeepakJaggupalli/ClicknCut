@@ -57,7 +57,7 @@ const Login: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Login - CameraCartopia</title>
+        <title>Login - Click N Cut</title>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
               <Link to="/" className="inline-flex items-center justify-center">
                 <Camera className="h-10 w-10 text-primary" />
                 <span className="ml-2 text-2xl font-bold tracking-tight">
-                  Camera<span className="text-primary">Cartopia</span>
+                  Click<span className="text-primary">N</span> Cut
                 </span>
               </Link>
             </div>

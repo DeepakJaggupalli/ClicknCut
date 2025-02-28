@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <Camera className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold tracking-tight">
-                Camera<span className="text-primary">Cartopia</span>
+                Click<span className="text-primary">N</span> Cut
               </span>
             </Link>
             <p className="text-muted-foreground">
@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground text-sm">
-          <p>&copy; {new Date().getFullYear()} CameraCartopia. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Click N Cut. All rights reserved.</p>
         </div>
       </div>
     </footer>

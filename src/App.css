@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -16,6 +17,15 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Money Heist theme elements */
+.money-heist-mask {
+  filter: drop-shadow(0 0 8px rgba(234, 56, 76, 0.6));
+}
+
+.salvador-red {
+  color: #ea384c; /* Money Heist red */
 }
 
 @keyframes logo-spin {

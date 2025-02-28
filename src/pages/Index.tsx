@@ -13,7 +13,7 @@ const Index: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>CameraCartopia - Premium Camera Rental & Editing Services</title>
+        <title>Click N Cut - Premium Camera Rental & Editing Services</title>
         <meta 
           name="description" 
           content="Rent high-quality cameras, lenses, and accessories. Professional editing services also available. Perfect for photographers and filmmakers." 

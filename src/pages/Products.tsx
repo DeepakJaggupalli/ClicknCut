@@ -51,7 +51,7 @@ const Products: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Shop Equipment - CameraCartopia</title>
+        <title>Shop Equipment - Click N Cut</title>
         <meta 
           name="description" 
           content="Browse and rent premium photography and videography equipment. Cameras, lenses, accessories, and editing software available." 
