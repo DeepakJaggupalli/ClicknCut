@@ -40,7 +40,7 @@ const Cart = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Helmet>
-        <title>Your Cart | Camera Gear</title>
+        <title>Your Cart | Click N Cut</title>
       </Helmet>
       
       <motion.div

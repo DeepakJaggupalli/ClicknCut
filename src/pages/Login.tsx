@@ -8,13 +8,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Camera, ArrowLeft, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Login: React.FC = () => {
+  // Login state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { login } = useAuth();
+  
+  // Signup state
+  const [signupName, setSignupName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [signupError, setSignupError] = useState("");
+  
+  const { login, signup } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -36,11 +47,6 @@ const Login: React.FC = () => {
         navigate("/");
       } else {
         setError("Invalid credentials. Try user@example.com / password");
-        toast({
-          title: "Login failed",
-          description: "Invalid email or password. Please try again.",
-          variant: "destructive",
-        });
       }
     } catch (err) {
       setError("An error occurred during login");
@@ -51,6 +57,45 @@ const Login: React.FC = () => {
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+  
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!signupName || !signupEmail || !signupPassword || !confirmPassword) {
+      setSignupError("Please fill in all fields");
+      return;
+    }
+    
+    if (signupPassword !== confirmPassword) {
+      setSignupError("Passwords do not match");
+      return;
+    }
+    
+    if (signupPassword.length < 6) {
+      setSignupError("Password must be at least 6 characters long");
+      return;
+    }
+    
+    setSignupError("");
+    setIsSigningUp(true);
+    
+    try {
+      const success = await signup(signupName, signupEmail, signupPassword);
+      
+      if (success) {
+        navigate("/");
+      }
+    } catch (err) {
+      setSignupError("An error occurred during registration");
+      toast({
+        title: "Registration error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSigningUp(false);
     }
   };
 
@@ -91,82 +136,171 @@ const Login: React.FC = () => {
               </Link>
             </div>
             
-            <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-              <h1 className="text-2xl font-bold mb-6">Log in to your account</h1>
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid grid-cols-2 mb-6">
+                <TabsTrigger value="login">Login</TabsTrigger>
+                <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              </TabsList>
               
-              {error && (
-                <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-md p-3 mb-6">
-                  {error}
-                </div>
-              )}
-              
-              <form onSubmit={handleLogin}>
-                <div className="space-y-4">
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-1">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
+              <TabsContent value="login">
+                <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
+                  <h1 className="text-2xl font-bold mb-6">Log in to your account</h1>
                   
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <label htmlFor="password" className="block text-sm font-medium">
-                        Password
-                      </label>
-                      <a href="#" className="text-xs text-primary hover:underline">
-                        Forgot password?
-                      </a>
+                  {error && (
+                    <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-md p-3 mb-6">
+                      {error}
                     </div>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
+                  )}
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-primary hover:bg-primary/90" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Logging in...
-                      </>
-                    ) : (
-                      "Log In"
-                    )}
-                  </Button>
+                  <form onSubmit={handleLogin}>
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium mb-1">
+                          Email
+                        </label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="Enter your email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between items-center mb-1">
+                          <label htmlFor="password" className="block text-sm font-medium">
+                            Password
+                          </label>
+                          <a href="#" className="text-xs text-primary hover:underline">
+                            Forgot password?
+                          </a>
+                        </div>
+                        <Input
+                          id="password"
+                          type="password"
+                          placeholder="Enter your password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <Button 
+                        type="submit" 
+                        className="w-full bg-primary hover:bg-primary/90" 
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Logging in...
+                          </>
+                        ) : (
+                          "Log In"
+                        )}
+                      </Button>
 
-                  <div className="mt-4 text-center text-sm text-muted-foreground">
-                    <p>
-                      Demo credentials: <br />
-                      Email: user@example.com <br />
-                      Password: password
-                    </p>
-                  </div>
+                      <div className="mt-4 text-center text-sm text-muted-foreground">
+                        <p>
+                          Demo credentials: <br />
+                          Email: user@example.com <br />
+                          Password: password
+                        </p>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
-            </div>
-            
-            <p className="text-center mt-6 text-sm text-muted-foreground">
-              Don't have an account?{" "}
-              <button className="text-primary hover:underline">
-                Sign up
-              </button>
-            </p>
+              </TabsContent>
+              
+              <TabsContent value="signup">
+                <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
+                  <h1 className="text-2xl font-bold mb-6">Create an account</h1>
+                  
+                  {signupError && (
+                    <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-md p-3 mb-6">
+                      {signupError}
+                    </div>
+                  )}
+                  
+                  <form onSubmit={handleSignup}>
+                    <div className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium mb-1">
+                          Full Name
+                        </label>
+                        <Input
+                          id="name"
+                          type="text"
+                          placeholder="Enter your full name"
+                          value={signupName}
+                          onChange={(e) => setSignupName(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="signupEmail" className="block text-sm font-medium mb-1">
+                          Email
+                        </label>
+                        <Input
+                          id="signupEmail"
+                          type="email"
+                          placeholder="Enter your email"
+                          value={signupEmail}
+                          onChange={(e) => setSignupEmail(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="signupPassword" className="block text-sm font-medium mb-1">
+                          Password
+                        </label>
+                        <Input
+                          id="signupPassword"
+                          type="password"
+                          placeholder="Create a password"
+                          value={signupPassword}
+                          onChange={(e) => setSignupPassword(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+                          Confirm Password
+                        </label>
+                        <Input
+                          id="confirmPassword"
+                          type="password"
+                          placeholder="Confirm your password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <Button 
+                        type="submit" 
+                        className="w-full bg-primary hover:bg-primary/90" 
+                        disabled={isSigningUp}
+                      >
+                        {isSigningUp ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Creating account...
+                          </>
+                        ) : (
+                          "Sign Up"
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                </div>
+              </TabsContent>
+            </Tabs>
           </motion.div>
         </div>
       </div>

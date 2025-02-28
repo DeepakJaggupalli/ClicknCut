@@ -12,6 +12,7 @@ type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
+  signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
 };
@@ -46,11 +47,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Simulating API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock login - in a real app this would call an API
+    // Get registered users from localStorage
+    const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+    
+    // Find user by email
+    const matchedUser = registeredUsers.find((u: any) => u.email === email && u.password === password);
+    
+    if (matchedUser) {
+      const loggedInUser = { id: matchedUser.id, name: matchedUser.name, email: matchedUser.email };
+      setUser(loggedInUser);
+      localStorage.setItem("user", JSON.stringify(loggedInUser));
+      
+      toast({
+        title: "Login successful",
+        description: `Welcome back, ${matchedUser.name}!`,
+        variant: "default",
+      });
+      
+      setIsLoading(false);
+      return true;
+    }
+    
+    // Fallback to demo account if no registered user matches
     if (email === "user@example.com" && password === "password") {
-      const newUser = { id: "1", name: "Demo User", email };
-      setUser(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser));
+      const demoUser = { id: "demo1", name: "Demo User", email };
+      setUser(demoUser);
+      localStorage.setItem("user", JSON.stringify(demoUser));
       
       toast({
         title: "Login successful",
@@ -62,8 +84,63 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return true;
     }
     
+    toast({
+      title: "Login failed",
+      description: "Invalid email or password. Please try again.",
+      variant: "destructive",
+    });
+    
     setIsLoading(false);
     return false;
+  };
+  
+  const signup = async (name: string, email: string, password: string): Promise<boolean> => {
+    setIsLoading(true);
+    
+    // Simulating API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Get registered users from localStorage or initialize empty array
+    const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+    
+    // Check if email already exists
+    const emailExists = registeredUsers.some((user: any) => user.email === email);
+    if (emailExists) {
+      toast({
+        title: "Registration failed",
+        description: "This email is already registered. Please use a different email.",
+        variant: "destructive",
+      });
+      
+      setIsLoading(false);
+      return false;
+    }
+    
+    // Create new user
+    const newUser = {
+      id: `user${Date.now()}`,
+      name,
+      email,
+      password // In a real app, this would be hashed
+    };
+    
+    // Add to registered users
+    registeredUsers.push(newUser);
+    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+    
+    // Log in the user
+    const loggedInUser = { id: newUser.id, name: newUser.name, email: newUser.email };
+    setUser(loggedInUser);
+    localStorage.setItem("user", JSON.stringify(loggedInUser));
+    
+    toast({
+      title: "Registration successful",
+      description: `Welcome to Click N Cut, ${name}!`,
+      variant: "default",
+    });
+    
+    setIsLoading(false);
+    return true;
   };
 
   const logout = () => {
@@ -80,6 +157,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     user,
     isLoading,
     login,
+    signup,
     logout,
     isAuthenticated: !!user,
   };
