@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -16,16 +16,25 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [showAddAnimation, setShowAddAnimation] = React.useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(product, 1, 1);
     
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
+    // Show animation
+    setShowAddAnimation(true);
+    
+    // Wait for animation to complete before adding to cart
+    setTimeout(() => {
+      addToCart(product, 1, 1);
+      setShowAddAnimation(false);
+      
+      toast({
+        title: "Added to cart",
+        description: `${product.name} has been added to your cart.`,
+      });
+    }, 800);
   };
 
   return (
@@ -33,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group"
+      className="group relative"
     >
       <Link to={`/products/${product.id}`} className="block h-full">
         <div className="relative bg-card rounded-lg overflow-hidden border border-border h-full transition-all duration-300 hover:border-primary/50 hover:shadow-md group-hover:translate-y-[-5px]">
@@ -109,6 +118,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
           </div>
         </div>
       </Link>
+      
+      {/* 3D Add to Cart Animation */}
+      <AnimatePresence>
+        {showAddAnimation && (
+          <motion.div 
+            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+            initial={{ opacity: 0, scale: 0.8, rotateY: 0 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1.2, 
+              rotateY: 360,
+              z: 50 
+            }}
+            exit={{ 
+              opacity: 0, 
+              scale: 0.8,
+              y: -100,
+              rotateY: 0
+            }}
+            transition={{ 
+              duration: 0.8,
+              ease: "easeInOut"
+            }}
+          >
+            <div className="bg-primary text-white rounded-full p-3 shadow-lg">
+              <ShoppingCart className="h-8 w-8" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };

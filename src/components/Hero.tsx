@@ -1,13 +1,64 @@
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Camera, Video } from "lucide-react";
 
 const Hero: React.FC = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showShutter, setShowShutter] = useState(true);
+
+  useEffect(() => {
+    // Show shutter animation first, then reveal content
+    const timer = setTimeout(() => {
+      setShowShutter(false);
+      setTimeout(() => setIsLoaded(true), 300);
+    }, 1200);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative h-[90vh] flex items-center overflow-hidden">
+      {/* Camera shutter animation */}
+      <AnimatePresence>
+        {showShutter && (
+          <motion.div 
+            className="absolute inset-0 bg-black z-50 flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            exit={{ 
+              height: 0,
+              opacity: 0,
+              transition: { 
+                height: { delay: 0.3, duration: 0.3 },
+                opacity: { duration: 0.3 } 
+              }
+            }}
+          >
+            <motion.div
+              className="w-32 h-32 border-t-4 border-r-4 border-b-4 border-l-4 border-primary rounded-full"
+              initial={{ scale: 1, opacity: 1 }}
+              animate={{ 
+                scale: [1, 5, 0.2],
+                opacity: [1, 0.8, 0],
+                rotateZ: [0, 45, 90]
+              }}
+              transition={{ duration: 1, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute w-64 h-64 border-4 border-primary"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 0.5, 0],
+                scale: [0.8, 1.2, 0]
+              }}
+              transition={{ duration: 1, delay: 0.2 }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background image with overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/70 z-10" />
@@ -27,7 +78,7 @@ const Hero: React.FC = () => {
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="inline-block bg-primary/20 text-primary border border-primary/30 rounded-full px-3 py-1 text-sm font-medium mb-5">
@@ -38,7 +89,7 @@ const Hero: React.FC = () => {
           <motion.h1
             className="text-4xl md:text-6xl font-bold leading-tight mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             Rent Premium Camera Gear for Your{" "}
@@ -48,7 +99,7 @@ const Hero: React.FC = () => {
           <motion.p
             className="text-lg md:text-xl text-foreground/80 mb-8 max-w-2xl"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             Access high-end cameras, lenses, and accessories without the high investment. 
@@ -58,7 +109,7 @@ const Hero: React.FC = () => {
           <motion.div
             className="flex flex-wrap gap-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white">
