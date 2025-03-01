@@ -8,22 +8,40 @@ import { Category } from "@/types";
 import ProductCard from "@/components/ProductCard";
 import CategoryFilter from "@/components/CategoryFilter";
 import { Input } from "@/components/ui/input";
-import { Search, Camera } from "lucide-react";
+import { Search, Camera, DollarSign, SlidersHorizontal } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Products: React.FC = () => {
   const location = useLocation();
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
+  
+  // Price filter states
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 6000]);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(6000);
+  
+  const handlePriceChange = (value: number[]) => {
+    setPriceRange([value[0], value[1]]);
+  };
 
   useEffect(() => {
     // Check if category is specified in URL query parameter
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get("category");
     
-    if (categoryParam && ["camera", "lens", "accessory", "editing", "all"].includes(categoryParam)) {
+    if (categoryParam && ["camera", "lens", "accessory", "editing", "all", "lighting", "drone"].includes(categoryParam)) {
       setActiveCategory(categoryParam as Category);
     }
+    
+    // Set min and max price based on products
+    const prices = products.map(p => p.price);
+    setMinPrice(Math.min(...prices));
+    setMaxPrice(Math.max(...prices));
+    setPriceRange([Math.min(...prices), Math.max(...prices)]);
   }, [location.search]);
 
   useEffect(() => {
@@ -45,8 +63,13 @@ const Products: React.FC = () => {
       );
     }
     
+    // Price filter
+    result = result.filter(
+      product => product.price >= priceRange[0] && product.price <= priceRange[1]
+    );
+    
     setFilteredProducts(result);
-  }, [activeCategory, searchTerm]);
+  }, [activeCategory, searchTerm, priceRange]);
 
   return (
     <>
@@ -59,10 +82,10 @@ const Products: React.FC = () => {
       </Helmet>
 
       <div className="mt-16 pt-16">
-        {/* Header with animated background */}
+        {/* Header with cinematic background */}
         <div className="bg-secondary py-10 md:py-16 border-b border-border relative overflow-hidden">
-          {/* Animated background with camera equipment */}
-          <div className="absolute inset-0 z-0 opacity-20">
+          {/* Cinematic video background */}
+          <div className="absolute inset-0 z-0 opacity-30">
             <video
               className="w-full h-full object-cover"
               autoPlay
@@ -71,40 +94,11 @@ const Products: React.FC = () => {
               playsInline
             >
               <source
-                src="https://static.videezy.com/system/resources/previews/000/044/109/original/200721_12_Cameras.mp4"
+                src="https://static.videezy.com/system/resources/previews/000/046/370/original/200807_14_Cameras.mp4"
                 type="video/mp4"
               />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-secondary/70 to-secondary"></div>
-          </div>
-
-          {/* Floating camera icons animation */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute text-primary/30"
-                initial={{ 
-                  x: Math.random() * 100, 
-                  y: -20,
-                  opacity: 0,
-                  scale: 0.5 + Math.random() * 1
-                }}
-                animate={{ 
-                  y: ['0%', '100%'],
-                  x: `calc(${Math.random() * 100}% + ${Math.sin(i) * 50}px)`,
-                  opacity: [0, 0.7, 0],
-                  rotate: Math.random() * 360
-                }}
-                transition={{ 
-                  duration: 15 + Math.random() * 10,
-                  repeat: Infinity,
-                  delay: i * 2
-                }}
-              >
-                <Camera size={20 + Math.random() * 30} />
-              </motion.div>
-            ))}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-secondary/70 to-secondary"></div>
           </div>
           
           <div className="container mx-auto px-4 relative z-10">
@@ -127,22 +121,63 @@ const Products: React.FC = () => {
               and editing software for all your creative needs.
             </motion.p>
             
-            {/* Search */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="max-w-md mx-auto relative mb-8"
-            >
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
-                type="search"
-                placeholder="Search for equipment..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-background"
-              />
-            </motion.div>
+            {/* Search and filter container */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
+              {/* Search */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="relative w-full md:w-[400px]"
+              >
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input
+                  type="search"
+                  placeholder="Search for equipment..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 bg-background"
+                />
+              </motion.div>
+              
+              {/* Price Filter */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="bg-background">
+                      <DollarSign className="h-4 w-4 mr-2" />
+                      Price: ₹{priceRange[0]} - ₹{priceRange[1]}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-4">
+                    <div className="space-y-4">
+                      <h4 className="font-medium">Price Range</h4>
+                      <Slider
+                        defaultValue={[minPrice, maxPrice]}
+                        value={[priceRange[0], priceRange[1]]}
+                        max={6000}
+                        step={100}
+                        minStepsBetweenThumbs={1}
+                        onValueChange={handlePriceChange}
+                        className="mt-6"
+                      />
+                      <div className="flex items-center justify-between">
+                        <div className="bg-background border border-input rounded p-2">
+                          ₹{priceRange[0]}
+                        </div>
+                        <div className="bg-background border border-input rounded p-2">
+                          ₹{priceRange[1]}
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </motion.div>
+            </div>
             
             {/* Categories */}
             <motion.div

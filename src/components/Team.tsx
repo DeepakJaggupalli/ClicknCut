@@ -66,39 +66,15 @@ const Team: React.FC = () => {
               className="relative group"
             >
               <div className="relative overflow-hidden rounded-lg bg-card transition-all duration-300 group-hover:shadow-lg border border-border group-hover:border-[#DAA520]">
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  
-                  {/* Liquid animation overlay on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500" style={{
-                    background: `${goldGradient}`,
-                    maskImage: "url('https://assets.codepen.io/4175254/noise-mask.png')",
-                    maskSize: "cover",
-                    mixBlendMode: "overlay"
-                  }}>
-                    <motion.div
-                      animate={{
-                        backgroundPosition: ["0% 0%", "100% 100%"],
-                      }}
-                      transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundImage: "url('https://assets.codepen.io/4175254/noise.png')",
-                      }}
-                    />
+                <div className="p-8 text-center">
+                  {/* Replace image with profile icon using member's initials */}
+                  <div className="w-24 h-24 mx-auto mb-4 rounded-full flex items-center justify-center" 
+                    style={{ background: goldGradient }}>
+                    <span className="text-2xl font-bold text-white">
+                      {member.name.charAt(0)}
+                    </span>
                   </div>
-                </div>
-                
-                <div className="p-5 text-center">
+                  
                   <h3 
                     className="font-bold text-xl mb-1 transition-colors duration-300"
                     style={{ 
@@ -119,6 +95,30 @@ const Team: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 + idx * 0.1 }}
                     style={{ background: goldGradient }}
+                  />
+                </div>
+                
+                {/* Liquid animation overlay on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500" style={{
+                  background: `${goldGradient}`,
+                  maskImage: "url('https://assets.codepen.io/4175254/noise-mask.png')",
+                  maskSize: "cover",
+                  mixBlendMode: "overlay"
+                }}>
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ["0% 0%", "100% 100%"],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundImage: "url('https://assets.codepen.io/4175254/noise.png')",
+                    }}
                   />
                 </div>
               </div>

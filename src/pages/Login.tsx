@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Camera, ArrowLeft, Loader2 } from "lucide-react";
+import { Camera, ArrowLeft, Loader2, Mail, Lock, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -20,6 +20,7 @@ const Login: React.FC = () => {
   // Signup state
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
+  const [signupAddress, setSignupAddress] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
@@ -31,6 +32,24 @@ const Login: React.FC = () => {
   const { login, signup } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Background gradients
+  const gradients = [
+    "linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%)",
+    "linear-gradient(90deg, #a1c4fd 0%, #c2e9fb 100%)",
+    "linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%)",
+    "linear-gradient(90deg, #84fab0 0%, #8fd3f4 100%)",
+    "linear-gradient(90deg, #fccb90 0%, #d57eeb 100%)",
+  ];
+  const [currentGradient, setCurrentGradient] = useState(0);
+
+  // Change gradient every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentGradient(prev => (prev + 1) % gradients.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +85,7 @@ const Login: React.FC = () => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!signupName || !signupEmail || !signupPassword || !confirmPassword) {
+    if (!signupName || !signupEmail || !signupAddress || !signupPassword || !confirmPassword) {
       setSignupError("Please fill in all fields");
       return;
     }
@@ -120,13 +139,20 @@ const Login: React.FC = () => {
         <title>Login - Click N Cut</title>
       </Helmet>
 
-      <div className="min-h-screen flex flex-col bg-background">
+      <div 
+        className="min-h-screen flex flex-col"
+        style={{
+          background: gradients[currentGradient],
+          backgroundSize: "200% 200%",
+          transition: "background 2s ease"
+        }}
+      >
         {/* Back Button */}
         <div className="container mx-auto px-4 pt-4">
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="sm" 
-            className="text-muted-foreground hover:text-foreground"
+            className="text-white bg-white/20 backdrop-blur-sm border-white/30 hover:bg-white/30"
             onClick={() => navigate("/")}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -144,9 +170,15 @@ const Login: React.FC = () => {
             {/* Logo */}
             <div className="text-center mb-8">
               <Link to="/" className="inline-flex items-center justify-center">
-                <Camera className="h-10 w-10 text-primary" />
-                <span className="ml-2 text-2xl font-bold tracking-tight">
-                  Click<span className="text-primary">N</span> Cut
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
+                >
+                  <Camera className="h-12 w-12 text-white drop-shadow-lg" />
+                </motion.div>
+                <span className="ml-2 text-3xl font-bold tracking-tight text-white drop-shadow-lg">
+                  Click<span className="text-yellow-300">N</span> Cut
                 </span>
               </Link>
             </div>
@@ -187,7 +219,8 @@ const Login: React.FC = () => {
                       transition={{ delay: 1.2 }}
                       className="text-white/80 mb-8"
                     >
-                      Your account has been created successfully.
+                      Your account has been created successfully.<br />
+                      A confirmation email has been sent to your email address.
                     </motion.p>
                     
                     <motion.div
@@ -204,17 +237,17 @@ const Login: React.FC = () => {
                 </motion.div>
               ) : (
                 <Tabs defaultValue="login" className="w-full">
-                  <TabsList className="grid grid-cols-2 mb-6">
-                    <TabsTrigger value="login">Login</TabsTrigger>
-                    <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                  <TabsList className="grid grid-cols-2 mb-6 bg-white/20 backdrop-blur-sm">
+                    <TabsTrigger value="login" className="data-[state=active]:bg-white/30 text-white">Login</TabsTrigger>
+                    <TabsTrigger value="signup" className="data-[state=active]:bg-white/30 text-white">Sign Up</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="login">
-                    <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-                      <h1 className="text-2xl font-bold mb-6">Log in to your account</h1>
+                    <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-lg p-8 shadow-lg">
+                      <h1 className="text-2xl font-bold mb-6 text-white">Welcome Back!</h1>
                       
                       {error && (
-                        <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-md p-3 mb-6">
+                        <div className="bg-red-500/20 border border-red-500/30 text-white rounded-md p-3 mb-6">
                           {error}
                         </div>
                       )}
@@ -222,41 +255,47 @@ const Login: React.FC = () => {
                       <form onSubmit={handleLogin}>
                         <div className="space-y-4">
                           <div>
-                            <label htmlFor="email" className="block text-sm font-medium mb-1">
+                            <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">
                               Email
                             </label>
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="Enter your email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              className="w-full"
-                            />
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
                           </div>
                           
                           <div>
                             <div className="flex justify-between items-center mb-1">
-                              <label htmlFor="password" className="block text-sm font-medium">
+                              <label htmlFor="password" className="block text-sm font-medium text-white">
                                 Password
                               </label>
-                              <a href="#" className="text-xs text-primary hover:underline">
+                              <a href="#" className="text-xs text-yellow-300 hover:underline">
                                 Forgot password?
                               </a>
                             </div>
-                            <Input
-                              id="password"
-                              type="password"
-                              placeholder="Enter your password"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                              className="w-full"
-                            />
+                            <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="password"
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
                           </div>
                           
                           <Button 
                             type="submit" 
-                            className="w-full bg-primary hover:bg-primary/90" 
+                            className="w-full bg-white/30 hover:bg-white/40 text-white border border-white/30" 
                             disabled={isSubmitting}
                           >
                             {isSubmitting ? (
@@ -269,7 +308,7 @@ const Login: React.FC = () => {
                             )}
                           </Button>
 
-                          <div className="mt-4 text-center text-sm text-muted-foreground">
+                          <div className="mt-4 text-center text-sm text-white/80">
                             <p>
                               Demo credentials: <br />
                               Email: user@example.com <br />
@@ -282,11 +321,11 @@ const Login: React.FC = () => {
                   </TabsContent>
                   
                   <TabsContent value="signup">
-                    <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-                      <h1 className="text-2xl font-bold mb-6">Create an account</h1>
+                    <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-lg p-8 shadow-lg">
+                      <h1 className="text-2xl font-bold mb-6 text-white">Create an account</h1>
                       
                       {signupError && (
-                        <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-md p-3 mb-6">
+                        <div className="bg-red-500/20 border border-red-500/30 text-white rounded-md p-3 mb-6">
                           {signupError}
                         </div>
                       )}
@@ -294,64 +333,90 @@ const Login: React.FC = () => {
                       <form onSubmit={handleSignup}>
                         <div className="space-y-4">
                           <div>
-                            <label htmlFor="name" className="block text-sm font-medium mb-1">
+                            <label htmlFor="name" className="block text-sm font-medium mb-1 text-white">
                               Full Name
                             </label>
-                            <Input
-                              id="name"
-                              type="text"
-                              placeholder="Enter your full name"
-                              value={signupName}
-                              onChange={(e) => setSignupName(e.target.value)}
-                              className="w-full"
-                            />
+                            <div className="relative">
+                              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="name"
+                                type="text"
+                                placeholder="Enter your full name"
+                                value={signupName}
+                                onChange={(e) => setSignupName(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
                           </div>
                           
                           <div>
-                            <label htmlFor="signupEmail" className="block text-sm font-medium mb-1">
+                            <label htmlFor="signupEmail" className="block text-sm font-medium mb-1 text-white">
                               Email
                             </label>
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="signupEmail"
+                                type="email"
+                                placeholder="Enter your email"
+                                value={signupEmail}
+                                onChange={(e) => setSignupEmail(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="address" className="block text-sm font-medium mb-1 text-white">
+                              Address
+                            </label>
                             <Input
-                              id="signupEmail"
-                              type="email"
-                              placeholder="Enter your email"
-                              value={signupEmail}
-                              onChange={(e) => setSignupEmail(e.target.value)}
-                              className="w-full"
+                              id="address"
+                              type="text"
+                              placeholder="Enter your address"
+                              value={signupAddress}
+                              onChange={(e) => setSignupAddress(e.target.value)}
+                              className="bg-white/10 border-white/30 text-white placeholder:text-white/60"
                             />
                           </div>
                           
                           <div>
-                            <label htmlFor="signupPassword" className="block text-sm font-medium mb-1">
+                            <label htmlFor="signupPassword" className="block text-sm font-medium mb-1 text-white">
                               Password
                             </label>
-                            <Input
-                              id="signupPassword"
-                              type="password"
-                              placeholder="Create a password"
-                              value={signupPassword}
-                              onChange={(e) => setSignupPassword(e.target.value)}
-                              className="w-full"
-                            />
+                            <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="signupPassword"
+                                type="password"
+                                placeholder="Create a password"
+                                value={signupPassword}
+                                onChange={(e) => setSignupPassword(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
                           </div>
                           
                           <div>
-                            <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">
+                            <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1 text-white">
                               Confirm Password
                             </label>
-                            <Input
-                              id="confirmPassword"
-                              type="password"
-                              placeholder="Confirm your password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
-                              className="w-full"
-                            />
+                            <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 h-4 w-4" />
+                              <Input
+                                id="confirmPassword"
+                                type="password"
+                                placeholder="Confirm your password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="pl-10 bg-white/10 border-white/30 text-white placeholder:text-white/60"
+                              />
+                            </div>
                           </div>
                           
                           <Button 
                             type="submit" 
-                            className="w-full bg-primary hover:bg-primary/90" 
+                            className="w-full bg-white/30 hover:bg-white/40 text-white border border-white/30" 
                             disabled={isSigningUp}
                           >
                             {isSigningUp ? (
@@ -371,6 +436,34 @@ const Login: React.FC = () => {
               )}
             </AnimatePresence>
           </motion.div>
+        </div>
+        
+        {/* Animated circles background */}
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-white/10 backdrop-blur-sm"
+              initial={{ 
+                width: Math.random() * 100 + 50, 
+                height: Math.random() * 100 + 50,
+                x: Math.random() * 100 - 50,
+                y: Math.random() * 100 - 50,
+                opacity: Math.random() * 0.3 + 0.1,
+              }}
+              animate={{
+                x: [`${Math.random() * 100}vw`, `${Math.random() * 100}vw`],
+                y: [`${Math.random() * 100}vh`, `${Math.random() * 100}vh`],
+                opacity: [Math.random() * 0.3 + 0.1, Math.random() * 0.5 + 0.2],
+              }}
+              transition={{
+                duration: Math.random() * 20 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear",
+              }}
+            />
+          ))}
         </div>
       </div>
     </>

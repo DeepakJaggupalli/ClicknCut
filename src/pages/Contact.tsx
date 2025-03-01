@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
               <p className="text-muted-foreground mb-4">Come see our equipment</p>
               <address className="not-italic text-primary">
                 GITAM University<br />
-                Visakhapatnam
+                Rushikonda, Visakhapatnam
               </address>
             </div>
           </div>
