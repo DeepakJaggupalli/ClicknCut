@@ -17,12 +17,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [showAddAnimation, setShowAddAnimation] = React.useState(false);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Show animation
+    // Show enhanced 3D animation
     setShowAddAnimation(true);
     
     // Wait for animation to complete before adding to cart
@@ -37,6 +38,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     }, 800);
   };
 
+  // Handle image loading
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -46,11 +52,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     >
       <Link to={`/products/${product.id}`} className="block h-full">
         <div className="relative bg-card rounded-lg overflow-hidden border border-border h-full transition-all duration-300 hover:border-primary/50 hover:shadow-md group-hover:translate-y-[-5px]">
-          <div className="aspect-[4/3] overflow-hidden bg-black">
+          <div className="aspect-[4/3] overflow-hidden bg-black relative">
+            {!imageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center bg-secondary">
+                <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+              </div>
+            )}
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+              className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              onLoad={handleImageLoad}
+              onError={() => {
+                // Fallback for failed images
+                console.error(`Failed to load image for ${product.name}`);
+                setImageLoaded(true); // Stop showing loader even if image fails
+              }}
             />
             
             {/* Category badge */}
@@ -60,10 +77,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               </span>
             </div>
             
-            {/* Price badge */}
+            {/* Price badge - reduced prices as requested */}
             <div className="absolute top-3 right-3">
               <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                ₹{product.price}/day
+                ₹{(product.price >= 4000) ? Math.floor(product.price * 0.8) : product.price}/day
               </span>
             </div>
             
@@ -119,7 +136,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
         </div>
       </Link>
       
-      {/* 3D Add to Cart Animation */}
+      {/* Enhanced 3D Add to Cart Animation */}
       <AnimatePresence>
         {showAddAnimation && (
           <motion.div 
@@ -142,8 +159,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               ease: "easeInOut"
             }}
           >
-            <div className="bg-primary text-white rounded-full p-3 shadow-lg">
+            <div className="bg-primary text-white rounded-full p-3 shadow-lg relative">
               <ShoppingCart className="h-8 w-8" />
+              <motion.div
+                className="absolute -inset-2 rounded-full"
+                initial={{ opacity: 0.5, scale: 1 }}
+                animate={{ 
+                  opacity: 0, 
+                  scale: 1.5,
+                  border: "2px solid rgba(255, 0, 0, 0.5)"
+                }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: "easeOut",
+                  repeat: 1
+                }}
+              />
             </div>
           </motion.div>
         )}

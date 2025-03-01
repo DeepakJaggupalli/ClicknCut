@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
 
   return (
     <div className="relative h-[90vh] flex items-center overflow-hidden">
-      {/* Camera shutter animation */}
+      {/* Enhanced Camera shutter animation */}
       <AnimatePresence>
         {showShutter && (
           <motion.div 
@@ -54,6 +54,24 @@ const Hero: React.FC = () => {
                 scale: [0.8, 1.2, 0]
               }}
               transition={{ duration: 1, delay: 0.2 }}
+            />
+            <motion.div
+              className="absolute w-full h-[2px] bg-primary"
+              initial={{ scaleX: 0 }}
+              animate={{ 
+                scaleX: [0, 1, 0],
+                opacity: [0, 1, 0]
+              }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+            <motion.div
+              className="absolute h-full w-[2px] bg-primary"
+              initial={{ scaleY: 0 }}
+              animate={{ 
+                scaleY: [0, 1, 0],
+                opacity: [0, 1, 0]
+              }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             />
           </motion.div>
         )}
