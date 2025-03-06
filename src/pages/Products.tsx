@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
@@ -18,7 +17,6 @@ import {
   Filter, 
   Check,
   RotateCcw,
-  RotateCw,
   ChevronDown
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
@@ -192,7 +190,7 @@ const Products: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>{"Shop Equipment - Click N Cut"}</title>
+        <title>Shop Equipment - Click N Cut</title>
         <meta 
           name="description" 
           content="Browse and rent premium photography and videography equipment. Cameras, lenses, accessories, and editing software available." 
@@ -620,21 +618,6 @@ const Products: React.FC = () => {
                   {filteredProducts.map((product, index) => (
                     <ProductCard key={product.id} product={product} index={index} />
                   ))}
-                </motion.div>
-                
-                <motion.div
-                  className="mt-12 p-6 bg-black/5 rounded-lg text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
-                >
-                  <div className="flex items-center justify-center mb-2">
-                    <RotateCw className="h-5 w-5 mr-2 text-primary" />
-                    <h3 className="text-lg font-medium">360° Product Previews</h3>
-                  </div>
-                  <p className="text-muted-foreground">
-                    Hover over any product and click the 3D rotation icon to see products from all angles.
-                  </p>
                 </motion.div>
               </>
             )}

@@ -1,3 +1,4 @@
+
 import { Product } from "@/types";
 
 export const products: Product[] = [
@@ -7,7 +8,7 @@ export const products: Product[] = [
     description: "Professional full-frame mirrorless camera with 8K video recording capability.",
     price: 1950,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "45MP Full-Frame CMOS Sensor",
@@ -31,7 +32,7 @@ export const products: Product[] = [
     description: "Full-frame mirrorless camera optimized for video and low-light performance.",
     price: 1800,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/3568520/pexels-photo-3568520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "12.1MP Full-Frame CMOS Sensor",
@@ -55,7 +56,7 @@ export const products: Product[] = [
     description: "Ultra-fast standard prime lens with exceptional image quality.",
     price: 1200,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1617711307383-55718f94ec58?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/37730/sunset-boat-sea-ship-37730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Extremely fast f/1.2 maximum aperture",
@@ -79,7 +80,7 @@ export const products: Product[] = [
     description: "Professional 3-axis gimbal stabilizer for DSLR and mirrorless cameras.",
     price: 1100,
     category: "accessory",
-    image: "https://images.unsplash.com/photo-1612531823729-f1ba7adc2d7a?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/2531158/pexels-photo-2531158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "8.8 lb Payload Capacity",
@@ -103,7 +104,7 @@ export const products: Product[] = [
     description: "Professional video editing software with comprehensive tools and features.",
     price: 1200,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1594118319842-b72837a0ecea?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/1181290/pexels-photo-1181290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Multi-Camera Editing",
@@ -127,7 +128,7 @@ export const products: Product[] = [
     description: "Compact cinema camera with 6K resolution and Super 35 sensor.",
     price: 1850,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1599008633840-052c7f756385?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/1983037/pexels-photo-1983037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Super 35 Sensor",
@@ -151,7 +152,7 @@ export const products: Product[] = [
     description: "Professional editing, color correction, visual effects, and audio post-production software.",
     price: 1300,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1635227262391-718aa19feff0?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/7862542/pexels-photo-7862542.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Advanced Color Grading Tools",
@@ -175,7 +176,7 @@ export const products: Product[] = [
     description: "Professional standard zoom lens with constant f/2.8 aperture.",
     price: 1150,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1610789944487-41998963789c?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/3379528/pexels-photo-3379528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Constant f/2.8 Maximum Aperture",
@@ -199,7 +200,7 @@ export const products: Product[] = [
     description: "Professional LED continuous lighting for video production with bowens mount.",
     price: 1000,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1607084954941-c1ca9675f23f?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/7259249/pexels-photo-7259249.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "60W Daylight-Balanced Output",
@@ -223,7 +224,7 @@ export const products: Product[] = [
     description: "Professional LED light with impressive output and precision color accuracy.",
     price: 1050,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1623952575094-5f1a4e484499?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/3626734/pexels-photo-3626734.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "120W Daylight-Balanced Output",

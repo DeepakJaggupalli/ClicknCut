@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Eye, RotateCw } from "lucide-react";
+import { ShoppingCart, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type ProductCardProps = {
@@ -19,10 +19,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const [showAddAnimation, setShowAddAnimation] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [rotate, setRotate] = useState(false);
 
   // Updated fallback image with a more reliable source
-  const fallbackImage = "https://placehold.co/600x400/333/white?text=Product+Image";
+  const fallbackImage = "https://placehold.co/600x400/333/white?text=Camera+Equipment";
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -56,13 +55,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     setImageLoaded(true); // Stop showing loader even if image fails
   };
 
-  // Toggle 360 rotation view
-  const toggleRotate = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setRotate(!rotate);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -79,19 +71,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               </div>
             )}
             
-            <motion.div
-              animate={rotate ? { rotateY: 360 } : { rotateY: 0 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="w-full h-full"
-            >
-              <img
-                src={imageError ? fallbackImage : product.image}
-                alt={product.name}
-                className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-              />
-            </motion.div>
+            <img
+              src={imageError ? fallbackImage : product.image}
+              alt={product.name}
+              className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
             
             {/* Category badge */}
             <div className="absolute top-3 left-3">
@@ -107,7 +93,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               </span>
             </div>
             
-            {/* Quick actions overlay */}
+            {/* Quick actions overlay - removed rotation button */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-all duration-300">
               <Button
                 variant="secondary"
@@ -116,14 +102,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
                 onClick={handleAddToCart}
               >
                 <ShoppingCart className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="secondary"
-                size="icon"
-                className="rounded-full h-10 w-10 bg-white/20 backdrop-blur-sm hover:bg-white/30"
-                onClick={toggleRotate}
-              >
-                <RotateCw className="h-4 w-4" />
               </Button>
               <Button
                 variant="secondary"
