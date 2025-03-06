@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Eye, Rotate3d } from "lucide-react";
+import { ShoppingCart, Eye, RotateCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type ProductCardProps = {
@@ -18,7 +18,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { toast } = useToast();
   const [showAddAnimation, setShowAddAnimation] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [rotate, setRotate] = useState(false);
+
+  // Fallback image URL if the product image fails to load
+  const fallbackImage = "https://images.pexels.com/photos/243757/pexels-photo-243757.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -42,6 +46,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   // Handle image loading
   const handleImageLoad = () => {
     setImageLoaded(true);
+    setImageError(false);
+  };
+
+  // Handle image error
+  const handleImageError = () => {
+    console.error(`Failed to load image for ${product.name}, using fallback`);
+    setImageError(true);
+    setImageLoaded(true); // Stop showing loader even if image fails
   };
 
   // Toggle 360 rotation view
@@ -73,15 +85,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               className="w-full h-full"
             >
               <img
-                src={product.image}
+                src={imageError ? fallbackImage : product.image}
                 alt={product.name}
                 className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 onLoad={handleImageLoad}
-                onError={() => {
-                  // Fallback for failed images
-                  console.error(`Failed to load image for ${product.name}`);
-                  setImageLoaded(true); // Stop showing loader even if image fails
-                }}
+                onError={handleImageError}
               />
             </motion.div>
             
@@ -115,7 +123,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
                 className="rounded-full h-10 w-10 bg-white/20 backdrop-blur-sm hover:bg-white/30"
                 onClick={toggleRotate}
               >
-                <Rotate3d className="h-4 w-4" />
+                <RotateCw className="h-4 w-4" />
               </Button>
               <Button
                 variant="secondary"
