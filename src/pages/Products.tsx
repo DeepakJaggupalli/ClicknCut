@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
@@ -18,6 +17,7 @@ import {
   Filter, 
   Check,
   RotateCcw,
+  RotateCw,
   ChevronDown
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
@@ -48,7 +48,6 @@ const Products: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
   
-  // Advanced filter states
   const [priceRange, setPriceRange] = useState<[number, number]>([1000, 2000]);
   const [minPrice, setMinPrice] = useState(1000);
   const [maxPrice, setMaxPrice] = useState(2000);
@@ -58,7 +57,6 @@ const Products: React.FC = () => {
   const [filtersExpanded, setFiltersExpanded] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
   
-  // Animation states
   const [animateHeader, setAnimateHeader] = useState(false);
   const [animateFilters, setAnimateFilters] = useState(false);
   const [animateProducts, setAnimateProducts] = useState(false);
@@ -68,7 +66,6 @@ const Products: React.FC = () => {
     setPriceRange([value[0], value[1]]);
   };
 
-  // Reset all filters
   const resetFilters = () => {
     setActiveCategory("all");
     setSearchTerm("");
@@ -77,7 +74,6 @@ const Products: React.FC = () => {
     setRentalDuration(1);
   };
 
-  // Toggle camera animation on entry
   const playCameraAnimation = () => {
     setShowCameraAnimation(true);
     setTimeout(() => {
@@ -86,10 +82,8 @@ const Products: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initialize with camera animation
     playCameraAnimation();
     
-    // Check if category is specified in URL query parameter
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get("category");
     
@@ -97,11 +91,9 @@ const Products: React.FC = () => {
       setActiveCategory(categoryParam as Category);
     }
     
-    // Get all available brands for filtering
     const brands = getAvailableBrands();
     setAvailableBrands(brands);
     
-    // Set min and max price based on products
     const prices = products.map(p => p.price);
     setMinPrice(Math.min(...prices));
     setMaxPrice(Math.max(...prices));
@@ -109,7 +101,6 @@ const Products: React.FC = () => {
   }, [location.search]);
 
   useEffect(() => {
-    // Apply all filters
     const options: FilterOptions = {
       category: activeCategory !== "all" ? activeCategory : undefined,
       search: searchTerm || undefined,
@@ -120,7 +111,6 @@ const Products: React.FC = () => {
     const result = filterProducts(options);
     setFilteredProducts(result);
     
-    // Calculate number of active filters for badge
     let count = 0;
     if (activeCategory !== "all") count++;
     if (searchTerm) count++;
@@ -129,14 +119,12 @@ const Products: React.FC = () => {
     if (rentalDuration > 1) count++;
     setFilterCount(count);
     
-    // Trigger animations when the filters change
     setAnimateProducts(true);
     setTimeout(() => {
       setAnimateProducts(false);
     }, 300);
   }, [activeCategory, searchTerm, priceRange, selectedBrand, rentalDuration, minPrice, maxPrice]);
 
-  // Trigger sequential animations on page load
   useEffect(() => {
     setTimeout(() => {
       setAnimateHeader(true);
@@ -149,7 +137,6 @@ const Products: React.FC = () => {
     }, 100);
   }, []);
 
-  // Camera floating animations
   const cameraFloatVariants = {
     animate: {
       y: [0, -15, 0],
@@ -162,7 +149,6 @@ const Products: React.FC = () => {
     },
   };
 
-  // 3D Camera animation
   const cameraAnimationVariants = {
     initial: { 
       scale: 0.5, 
@@ -192,7 +178,6 @@ const Products: React.FC = () => {
     }
   };
 
-  // Product grid animation variants
   const productContainerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -213,7 +198,6 @@ const Products: React.FC = () => {
         />
       </Helmet>
 
-      {/* 3D Camera Animation Overlay */}
       <AnimatePresence>
         {showCameraAnimation && (
           <motion.div
@@ -231,11 +215,9 @@ const Products: React.FC = () => {
               exit="exit"
             >
               <motion.div className="w-64 h-48 bg-gray-900 rounded-lg relative overflow-hidden">
-                {/* Camera Body */}
                 <motion.div className="absolute inset-0">
                   <motion.div className="absolute top-0 right-0 w-16 h-10 bg-gray-800 rounded-bl-lg" />
                   <motion.div className="absolute top-4 left-4 w-16 h-16 bg-black rounded-full border-4 border-gray-800" >
-                    {/* Lens */}
                     <motion.div 
                       className="w-full h-full rounded-full bg-gradient-to-br from-gray-700 to-black"
                       animate={{ 
@@ -266,7 +248,6 @@ const Products: React.FC = () => {
                     </motion.div>
                   </motion.div>
                   
-                  {/* Camera Details */}
                   <motion.div className="absolute top-6 right-6 w-8 h-8 rounded-full bg-red-600" 
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 1, repeat: Infinity }}
@@ -289,9 +270,7 @@ const Products: React.FC = () => {
       </AnimatePresence>
 
       <div className="mt-16 pt-16">
-        {/* Header with cinematic background */}
         <div className="bg-secondary py-10 md:py-16 border-b border-border relative overflow-hidden">
-          {/* Cinematic video background */}
           <div className="absolute inset-0 z-0 opacity-30">
             <video
               className="w-full h-full object-cover"
@@ -308,7 +287,6 @@ const Products: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-secondary/70 to-secondary"></div>
           </div>
           
-          {/* Floating camera animation */}
           <motion.div 
             variants={cameraFloatVariants}
             animate="animate"
@@ -346,14 +324,12 @@ const Products: React.FC = () => {
               and editing software for all your creative needs.
             </motion.p>
             
-            {/* Search and filter container with staggered animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8"
             >
-              {/* Search with typing animation */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -369,7 +345,6 @@ const Products: React.FC = () => {
                   className="pl-10 bg-background"
                 />
                 
-                {/* Animated typing indicator when input is focused */}
                 {searchTerm === "" && (
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -380,7 +355,6 @@ const Products: React.FC = () => {
                 )}
               </motion.div>
               
-              {/* Advanced Filters Button */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -421,7 +395,6 @@ const Products: React.FC = () => {
                     
                     <div className="p-4 max-h-[400px] overflow-y-auto">
                       <Accordion type="single" collapsible className="space-y-4">
-                        {/* Price Range Filter */}
                         <AccordionItem value="price" className="border-b">
                           <AccordionTrigger className="py-3">
                             <div className="flex items-center">
@@ -452,7 +425,6 @@ const Products: React.FC = () => {
                           </AccordionContent>
                         </AccordionItem>
                         
-                        {/* Brand Filter */}
                         <AccordionItem value="brand" className="border-b">
                           <AccordionTrigger className="py-3">
                             <div className="flex items-center">
@@ -477,7 +449,6 @@ const Products: React.FC = () => {
                           </AccordionContent>
                         </AccordionItem>
                         
-                        {/* Rental Duration */}
                         <AccordionItem value="duration" className="border-b">
                           <AccordionTrigger className="py-3">
                             <div className="flex items-center">
@@ -516,7 +487,6 @@ const Products: React.FC = () => {
                           </AccordionContent>
                         </AccordionItem>
                         
-                        {/* Availability */}
                         <AccordionItem value="availability" className="border-none">
                           <AccordionTrigger className="py-3">
                             <div className="flex items-center">
@@ -563,7 +533,6 @@ const Products: React.FC = () => {
               </motion.div>
             </motion.div>
             
-            {/* Categories with staggered animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -577,7 +546,6 @@ const Products: React.FC = () => {
           </div>
         </div>
         
-        {/* Product Grid with staggered animation */}
         <AnimatePresence mode="wait">
           <motion.div 
             key={`${activeCategory}-${searchTerm}-${priceRange[0]}-${priceRange[1]}-${selectedBrand}`}
@@ -653,7 +621,6 @@ const Products: React.FC = () => {
                   ))}
                 </motion.div>
                 
-                {/* 360° View Instructions */}
                 <motion.div
                   className="mt-12 p-6 bg-black/5 rounded-lg text-center"
                   initial={{ opacity: 0, y: 20 }}
@@ -661,7 +628,7 @@ const Products: React.FC = () => {
                   transition={{ delay: 0.8, duration: 0.5 }}
                 >
                   <div className="flex items-center justify-center mb-2">
-                    <Rotate3d className="h-5 w-5 mr-2 text-primary" />
+                    <RotateCw className="h-5 w-5 mr-2 text-primary" />
                     <h3 className="text-lg font-medium">360° Product Previews</h3>
                   </div>
                   <p className="text-muted-foreground">
