@@ -7,7 +7,7 @@ export const products: Product[] = [
     description: "Professional full-frame mirrorless camera with 8K video recording capability.",
     price: 1950,
     category: "camera",
-    image: "https://i.imgur.com/xCUsiK2.jpg",
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "45MP Full-Frame CMOS Sensor",
@@ -31,7 +31,7 @@ export const products: Product[] = [
     description: "Full-frame mirrorless camera optimized for video and low-light performance.",
     price: 1800,
     category: "camera",
-    image: "https://i.imgur.com/uHBMOr8.jpg",
+    image: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "12.1MP Full-Frame CMOS Sensor",
@@ -55,7 +55,7 @@ export const products: Product[] = [
     description: "Ultra-fast standard prime lens with exceptional image quality.",
     price: 1200,
     category: "lens",
-    image: "https://i.imgur.com/tLb43qM.jpg",
+    image: "https://images.unsplash.com/photo-1617711307383-55718f94ec58?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Extremely fast f/1.2 maximum aperture",
@@ -79,7 +79,7 @@ export const products: Product[] = [
     description: "Professional 3-axis gimbal stabilizer for DSLR and mirrorless cameras.",
     price: 1100,
     category: "accessory",
-    image: "https://i.imgur.com/iWtXJHl.jpg",
+    image: "https://images.unsplash.com/photo-1612531823729-f1ba7adc2d7a?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "8.8 lb Payload Capacity",
@@ -103,7 +103,7 @@ export const products: Product[] = [
     description: "Professional video editing software with comprehensive tools and features.",
     price: 1200,
     category: "editing",
-    image: "https://i.imgur.com/c9NvRQ9.jpg",
+    image: "https://images.unsplash.com/photo-1594118319842-b72837a0ecea?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "Multi-Camera Editing",
@@ -127,7 +127,7 @@ export const products: Product[] = [
     description: "Compact cinema camera with 6K resolution and Super 35 sensor.",
     price: 1850,
     category: "camera",
-    image: "https://i.imgur.com/FLtfVSu.jpg",
+    image: "https://images.unsplash.com/photo-1599008633840-052c7f756385?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Super 35 Sensor",
@@ -151,7 +151,7 @@ export const products: Product[] = [
     description: "Professional editing, color correction, visual effects, and audio post-production software.",
     price: 1300,
     category: "editing",
-    image: "https://i.imgur.com/N3p4UQY.jpg",
+    image: "https://images.unsplash.com/photo-1635227262391-718aa19feff0?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "Advanced Color Grading Tools",
@@ -175,7 +175,7 @@ export const products: Product[] = [
     description: "Professional standard zoom lens with constant f/2.8 aperture.",
     price: 1150,
     category: "lens",
-    image: "https://i.imgur.com/b31xKDt.jpg",
+    image: "https://images.unsplash.com/photo-1610789944487-41998963789c?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Constant f/2.8 Maximum Aperture",
@@ -199,7 +199,7 @@ export const products: Product[] = [
     description: "Professional LED continuous lighting for video production with bowens mount.",
     price: 1000,
     category: "lighting",
-    image: "https://i.imgur.com/znf0tDt.jpg",
+    image: "https://images.unsplash.com/photo-1607084954941-c1ca9675f23f?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "60W Daylight-Balanced Output",
@@ -223,7 +223,7 @@ export const products: Product[] = [
     description: "Professional LED light with impressive output and precision color accuracy.",
     price: 1050,
     category: "lighting",
-    image: "https://i.imgur.com/N0OwO0W.jpg",
+    image: "https://images.unsplash.com/photo-1623952575094-5f1a4e484499?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "120W Daylight-Balanced Output",
@@ -247,7 +247,7 @@ export const products: Product[] = [
     description: "Professional drone with Hasselblad camera system and advanced flight capabilities.",
     price: 1900,
     category: "drone",
-    image: "https://i.imgur.com/hGxSiHN.jpg",
+    image: "https://images.unsplash.com/photo-1679244497834-04290965c491?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Hasselblad 4/3 CMOS Sensor",
@@ -271,7 +271,7 @@ export const products: Product[] = [
     description: "Compact sub-250g drone with professional-grade camera and obstacle avoidance.",
     price: 1400,
     category: "drone",
-    image: "https://i.imgur.com/KYvlPPD.jpg",
+    image: "https://images.unsplash.com/photo-1653947394794-c199940593e5?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "1/1.3-inch CMOS Sensor",
@@ -295,7 +295,7 @@ export const products: Product[] = [
     description: "Apple's professional video editing software with powerful tools and seamless ProRes integration.",
     price: 1250,
     category: "editing",
-    image: "https://i.imgur.com/oqJvIvx.jpg",
+    image: "https://images.unsplash.com/photo-1628155356945-f146695399a8?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "Magnetic Timeline Interface",
@@ -319,7 +319,7 @@ export const products: Product[] = [
     description: "Industry-standard motion graphics and visual effects software.",
     price: 1150,
     category: "editing",
-    image: "https://i.imgur.com/Wqh6aP5.jpg",
+    image: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "Advanced Compositing Tools",
@@ -343,7 +343,7 @@ export const products: Product[] = [
     description: "Flagship professional mirrorless camera with advanced AI subject detection.",
     price: 1980,
     category: "camera",
-    image: "https://i.imgur.com/qJfptKx.jpg",
+    image: "https://images.unsplash.com/photo-1642178939374-1c5592ca98c7?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "45.7MP Stacked CMOS Sensor",
@@ -367,7 +367,7 @@ export const products: Product[] = [
     description: "Professional telephoto zoom lens with constant f/2.8 aperture.",
     price: 1350,
     category: "lens",
-    image: "https://i.imgur.com/zUKGIJI.jpg",
+    image: "https://images.unsplash.com/photo-1610789944487-41998963789c?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Constant f/2.8 Maximum Aperture",
@@ -391,7 +391,7 @@ export const products: Product[] = [
     description: "Professional on-camera shotgun microphone for clear audio recording.",
     price: 1000,
     category: "accessory",
-    image: "https://i.imgur.com/IXE2ZLH.jpg",
+    image: "https://images.unsplash.com/photo-1607861758373-eb5b14de5b99?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "Digital Switching with Safety Channel",
@@ -415,7 +415,7 @@ export const products: Product[] = [
     description: "Compact battery-powered studio flash with high output and TTL.",
     price: 1250,
     category: "lighting",
-    image: "https://i.imgur.com/TZSj5qK.jpg",
+    image: "https://images.unsplash.com/photo-1614985145942-959955263554?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "500Ws Output",
@@ -439,7 +439,7 @@ export const products: Product[] = [
     description: "18-inch bi-color LED ring light kit with stand for portrait and video shooting.",
     price: 1000,
     category: "lighting",
-    image: "https://i.imgur.com/aUmrTwa.jpg",
+    image: "https://images.unsplash.com/photo-1611267344108-4a6a88715495?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "3200-5600K Color Temperature",
@@ -463,7 +463,7 @@ export const products: Product[] = [
     description: "Professional photo editing and graphic design software.",
     price: 1100,
     category: "editing",
-    image: "https://i.imgur.com/3YoLw5E.jpg",
+    image: "https://images.unsplash.com/photo-1588508065123-287b28e7ca28?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "Advanced Layer Controls",
@@ -487,7 +487,7 @@ export const products: Product[] = [
     description: "Professional drone with 6K camera and advanced obstacle avoidance.",
     price: 1850,
     category: "drone",
-    image: "https://i.imgur.com/Nix3K0x.jpg",
+    image: "https://images.unsplash.com/photo-1606852415994-39945642a96a?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "1-inch CMOS Sensor",
@@ -511,7 +511,7 @@ export const products: Product[] = [
     description: "AI-powered photo editing software with automated enhancement tools.",
     price: 1050,
     category: "editing",
-    image: "https://i.imgur.com/lp7VQFg.jpg",
+    image: "https://images.unsplash.com/photo-1611267344108-4a6a88715495?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: false,
     features: [
       "AI Sky Replacement",
@@ -535,7 +535,7 @@ export const products: Product[] = [
     description: "Waterproof action camera with stabilization and 5.3K video.",
     price: 1000,
     category: "camera",
-    image: "https://i.imgur.com/iJeOYv8.jpg",
+    image: "https://images.unsplash.com/photo-1670832551917-545359813791?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "5.3K60 Video",
@@ -559,7 +559,7 @@ export const products: Product[] = [
     description: "Professional portrait lens with exceptional sharpness and bokeh.",
     price: 1150,
     category: "lens",
-    image: "https://i.imgur.com/Fm9nCIW.jpg",
+    image: "https://images.unsplash.com/photo-1610789944487-41998963789c?q=80&w=1000&auto=format&fit=crop",
     rentalAvailable: true,
     features: [
       "f/1.4 Maximum Aperture",

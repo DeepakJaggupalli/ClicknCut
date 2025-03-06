@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
@@ -191,7 +192,7 @@ const Products: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Shop Equipment - Click <span className="text-[#ea384c]">N</span> Cut</title>
+        <title>{"Shop Equipment - Click N Cut"}</title>
         <meta 
           name="description" 
           content="Browse and rent premium photography and videography equipment. Cameras, lenses, accessories, and editing software available." 

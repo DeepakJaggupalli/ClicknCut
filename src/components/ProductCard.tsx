@@ -21,8 +21,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const [imageError, setImageError] = useState(false);
   const [rotate, setRotate] = useState(false);
 
-  // Fallback image URL if the product image fails to load
-  const fallbackImage = "https://images.pexels.com/photos/243757/pexels-photo-243757.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+  // Updated fallback image with a more reliable source
+  const fallbackImage = "https://placehold.co/600x400/333/white?text=Product+Image";
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
