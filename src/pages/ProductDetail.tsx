@@ -127,7 +127,6 @@ const ProductDetail: React.FC = () => {
   const [rentalDays, setRentalDays] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [isImageZoomed, setIsImageZoomed] = useState(false);
-  const [showCameraAnimation, setShowCameraAnimation] = useState(true);
 
   useEffect(() => {
     if (!product) {
@@ -144,13 +143,6 @@ const ProductDetail: React.FC = () => {
       .filter(p => p.category === product.category && p.id !== product.id)
       .slice(0, 3);
     setRelatedProducts(related);
-    
-    setShowCameraAnimation(true);
-    const timer = setTimeout(() => {
-      setShowCameraAnimation(false);
-    }, 2000);
-    
-    return () => clearTimeout(timer);
   }, [product, navigate, toast]);
 
   const incrementQuantity = () => {
@@ -194,93 +186,9 @@ const ProductDetail: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} - Click <span className="text-[#ea384c]">N</span> Cut</title>
+        <title>{product.name} - Click N Cut</title>
         <meta name="description" content={product.description} />
       </Helmet>
-
-      <AnimatePresence>
-        {showCameraAnimation && (
-          <motion.div 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.div
-              className="relative w-64 h-64 flex items-center justify-center"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1, rotate: [0, 5, 0, -5, 0] }}
-              exit={{ scale: 1.5, opacity: 0 }}
-              transition={{ 
-                duration: 1.5,
-                type: "spring",
-                stiffness: 200
-              }}
-            >
-              <motion.div className="w-56 h-40 bg-black rounded-md relative">
-                <motion.div 
-                  className="absolute left-6 top-1/2 -translate-y-1/2 w-24 h-24 bg-gray-900 rounded-full border-4 border-gray-800"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
-                >
-                  <motion.div 
-                    className="absolute inset-0 m-2 bg-black rounded-full"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.7, duration: 0.3 }}
-                  >
-                    <motion.div 
-                      className="absolute inset-0 m-4 bg-gradient-to-br from-blue-900 to-gray-900 rounded-full"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.9, duration: 0.5 }}
-                    />
-                  </motion.div>
-                </motion.div>
-                
-                <motion.div 
-                  className="absolute right-10 top-0 w-12 h-8 bg-gray-800 rounded-sm -translate-y-4"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: -8, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                />
-                
-                <motion.div 
-                  className="absolute right-6 top-0 w-5 h-5 bg-red-500 rounded-full -translate-y-2"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.2, 1] }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                />
-                
-                <motion.div 
-                  className="absolute right-20 top-0 w-8 h-3 bg-white/80 -translate-y-3"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 1, 0, 1] }}
-                  transition={{ delay: 1.2, duration: 0.8 }}
-                />
-              </motion.div>
-              
-              <motion.div 
-                className="absolute inset-0 bg-black"
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 0 }}
-                transition={{ delay: 0.2, duration: 0.3 }}
-              />
-              
-              <motion.div 
-                className="absolute w-full text-center bottom-0 translate-y-16 text-white text-xl font-bold"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 16 }}
-                transition={{ delay: 1.5, duration: 0.5 }}
-              >
-                <span className="text-white">Click<span className="text-[#ea384c]">N</span>Cut</span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <div className="mt-16 pt-16">
         <div className="container mx-auto px-4 py-8">
