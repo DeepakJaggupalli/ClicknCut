@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
@@ -16,12 +16,8 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
-  const [showAddAnimation, setShowAddAnimation] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-
-  // Updated fallback image with a more reliable source
-  const fallbackImage = "https://placehold.co/600x400/333/white?text=Camera+Equipment";
+  const [showAddAnimation, setShowAddAnimation] = React.useState(false);
+  const [imageLoaded, setImageLoaded] = React.useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -45,14 +41,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   // Handle image loading
   const handleImageLoad = () => {
     setImageLoaded(true);
-    setImageError(false);
-  };
-
-  // Handle image error
-  const handleImageError = () => {
-    console.error(`Failed to load image for ${product.name}, using fallback`);
-    setImageError(true);
-    setImageLoaded(true); // Stop showing loader even if image fails
   };
 
   return (
@@ -70,13 +58,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
                 <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
               </div>
             )}
-            
             <img
-              src={imageError ? fallbackImage : product.image}
+              src={product.image}
               alt={product.name}
               className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               onLoad={handleImageLoad}
-              onError={handleImageError}
+              onError={() => {
+                // Fallback for failed images
+                console.error(`Failed to load image for ${product.name}`);
+                setImageLoaded(true); // Stop showing loader even if image fails
+              }}
             />
             
             {/* Category badge */}
@@ -89,11 +80,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
             {/* Price badge - reduced prices as requested */}
             <div className="absolute top-3 right-3">
               <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                ₹{product.price}/day
+                ₹{(product.price >= 4000) ? Math.floor(product.price * 0.8) : product.price}/day
               </span>
             </div>
             
-            {/* Quick actions overlay - removed rotation button */}
+            {/* Quick actions overlay */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-all duration-300">
               <Button
                 variant="secondary"
