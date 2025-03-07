@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/types";
@@ -23,6 +24,7 @@ type Order = {
     rentalDays: number;
     price: number;
     orderDate: string;
+    returnDate?: string;  // Adding returnDate property
     returned: boolean;
   }[];
   totalAmount: number;
