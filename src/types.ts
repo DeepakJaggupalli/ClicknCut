@@ -1,3 +1,4 @@
+
 export type Product = {
   id: string;
   name: string;
@@ -21,7 +22,7 @@ export type OrderItem = {
   rentalDays?: number;
   price: number;
   orderDate: string;
-  returnDate?: string;
+  returnDate?: string;  // Made returnDate optional with '?'
   returned: boolean;
 };
 

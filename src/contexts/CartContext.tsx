@@ -8,6 +8,7 @@ type CartItem = {
   price: number;
   image: string;
   quantity: number;
+  rentalDays?: number;
 };
 
 type Order = {
@@ -84,6 +85,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (existingItemIndex >= 0) {
         const updatedItems = [...currentItems];
         updatedItems[existingItemIndex].quantity += quantity;
+        updatedItems[existingItemIndex].rentalDays = rentalDays;
         toast({
           title: "Cart updated",
           description: `${product.name} quantity updated in cart`,
@@ -101,7 +103,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name: product.name, 
           price: product.price,
           image: product.image,
-          quantity 
+          quantity,
+          rentalDays
         }];
       }
     });
@@ -185,9 +188,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         productName: item.name,
         productImage: item.image,
         quantity: item.quantity,
-        rentalDays: item.rentalDays,
+        rentalDays: item.rentalDays || 0,
         price: item.price,
         orderDate: new Date().toISOString().split('T')[0],
+        returnDate: undefined,
         returned: false
       })),
       totalAmount: getCartTotal(),
@@ -196,7 +200,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     setOrders([...orders, newOrder]);
-    setCart([]);
+    clearCart();
     return newOrder;
   };
 
