@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
@@ -18,12 +19,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Textarea } from "@/components/ui/textarea";
 
 const Returns: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const { orders } = useCart();
+  const navigate = useNavigate();
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
   const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
   const [returnReason, setReturnReason] = useState<string>("");
