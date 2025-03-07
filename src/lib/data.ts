@@ -1,14 +1,13 @@
-
-import { Product } from "@/types";
+import { Product, Order } from "@/types";
 
 export const products: Product[] = [
   {
     id: "1",
     name: "Canon EOS R5",
     description: "Professional full-frame mirrorless camera with 8K video recording capability.",
-    price: 12500,
+    price: 1500,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1621520291095-aa6c7137f048?q=80&w=1000",
+    image: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "45MP Full-Frame CMOS Sensor",
@@ -23,9 +22,9 @@ export const products: Product[] = [
     id: "2",
     name: "Sony a7S III",
     description: "Full-frame mirrorless camera optimized for video and low-light performance.",
-    price: 11000,
+    price: 1200,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?q=80&w=1000",
+    image: "https://images.pexels.com/photos/51383/photo-camera-subject-photographer-51383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "12.1MP Full-Frame CMOS Sensor",
@@ -40,9 +39,9 @@ export const products: Product[] = [
     id: "3",
     name: "Canon RF 50mm f/1.2L USM",
     description: "Ultra-fast standard prime lens with exceptional image quality.",
-    price: 5200,
+    price: 850,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1525385444278-b7968b2b38fe?q=80&w=1000",
+    image: "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Extremely fast f/1.2 maximum aperture",
@@ -57,9 +56,9 @@ export const products: Product[] = [
     id: "4",
     name: "DJI Ronin-S",
     description: "Professional 3-axis gimbal stabilizer for DSLR and mirrorless cameras.",
-    price: 3600,
+    price: 700,
     category: "accessory",
-    image: "https://images.unsplash.com/photo-1606134500648-172747cda149?q=80&w=1000",
+    image: "https://images.pexels.com/photos/12459501/pexels-photo-12459501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "8.8 lb Payload Capacity",
@@ -74,9 +73,9 @@ export const products: Product[] = [
     id: "5",
     name: "Adobe Premiere Pro Subscription",
     description: "Professional video editing software with comprehensive tools and features.",
-    price: 4000,
+    price: 1800,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1654506905352-cee2bc48862e?q=80&w=1000",
+    image: "https://images.pexels.com/photos/2148222/pexels-photo-2148222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Multi-Camera Editing",
@@ -91,9 +90,9 @@ export const products: Product[] = [
     id: "6",
     name: "Blackmagic Pocket Cinema Camera 6K",
     description: "Compact cinema camera with 6K resolution and Super 35 sensor.",
-    price: 9800,
+    price: 1600,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1589038939341-31cc6d6e3140?q=80&w=1000",
+    image: "https://images.pexels.com/photos/6614288/pexels-photo-6614288.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Super 35 Sensor",
@@ -108,9 +107,9 @@ export const products: Product[] = [
     id: "7",
     name: "DaVinci Resolve Studio",
     description: "Professional editing, color correction, visual effects, and audio post-production software.",
-    price: 6500,
+    price: 1900,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1626785774625-9b118f5e8e98?q=80&w=1000",
+    image: "https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Advanced Color Grading Tools",
@@ -125,9 +124,9 @@ export const products: Product[] = [
     id: "8",
     name: "Sony 24-70mm f/2.8 GM",
     description: "Professional standard zoom lens with constant f/2.8 aperture.",
-    price: 4500,
+    price: 950,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1607139677169-2aa160eea0c6?q=80&w=1000",
+    image: "https://images.pexels.com/photos/159342/camera-lens-slr-photography-159342.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Constant f/2.8 Maximum Aperture",
@@ -142,9 +141,9 @@ export const products: Product[] = [
     id: "9",
     name: "Godox SL-60W LED Video Light",
     description: "Professional LED continuous lighting for video production with bowens mount.",
-    price: 2800,
+    price: 600,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1621330396173-e41b1cafd17f?q=80&w=1000",
+    image: "https://images.pexels.com/photos/266149/pexels-photo-266149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "60W Daylight-Balanced Output",
@@ -159,9 +158,9 @@ export const products: Product[] = [
     id: "10",
     name: "Aputure 120d II LED Light",
     description: "Professional LED light with impressive output and precision color accuracy.",
-    price: 3500,
+    price: 750,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1612631609061-512368da963f?q=80&w=1000",
+    image: "https://images.pexels.com/photos/279906/pexels-photo-279906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "120W Daylight-Balanced Output",
@@ -176,9 +175,9 @@ export const products: Product[] = [
     id: "11",
     name: "DJI Mavic 3 Pro",
     description: "Professional drone with Hasselblad camera system and advanced flight capabilities.",
-    price: 18500,
+    price: 1700,
     category: "drone",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=1000",
+    image: "https://images.pexels.com/photos/775219/pexels-photo-775219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Hasselblad 4/3 CMOS Sensor",
@@ -193,9 +192,9 @@ export const products: Product[] = [
     id: "12",
     name: "DJI Mini 3 Pro",
     description: "Compact sub-250g drone with professional-grade camera and obstacle avoidance.",
-    price: 7200,
+    price: 1100,
     category: "drone",
-    image: "https://images.unsplash.com/photo-1576502200916-f4ed2a1819e6?q=80&w=1000",
+    image: "https://images.pexels.com/photos/10447595/pexels-photo-10447595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "1/1.3-inch CMOS Sensor",
@@ -210,9 +209,9 @@ export const products: Product[] = [
     id: "13",
     name: "Final Cut Pro X",
     description: "Apple's professional video editing software with powerful tools and seamless ProRes integration.",
-    price: 5500,
+    price: 1950,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1633118442179-e9dae2a4af25?q=80&w=1000",
+    image: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Magnetic Timeline Interface",
@@ -227,9 +226,9 @@ export const products: Product[] = [
     id: "14",
     name: "Adobe After Effects Subscription",
     description: "Industry-standard motion graphics and visual effects software.",
-    price: 4200,
+    price: 1750,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1626785774625-9b118f5e8e98?q=80&w=1000",
+    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Advanced Compositing Tools",
@@ -244,9 +243,9 @@ export const products: Product[] = [
     id: "15",
     name: "Nikon Z9",
     description: "Flagship professional mirrorless camera with advanced AI subject detection.",
-    price: 14500,
+    price: 1850,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1580707221190-bd94d9087b7f?q=80&w=1000",
+    image: "https://images.pexels.com/photos/704976/pexels-photo-704976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "45.7MP Stacked CMOS Sensor",
@@ -261,9 +260,9 @@ export const products: Product[] = [
     id: "16",
     name: "Canon RF 70-200mm f/2.8L IS USM",
     description: "Professional telephoto zoom lens with constant f/2.8 aperture.",
-    price: 6200,
+    price: 1150,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1617560492504-7477691760e0?q=80&w=1000",
+    image: "https://images.pexels.com/photos/255364/pexels-photo-255364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Constant f/2.8 Maximum Aperture",
@@ -278,9 +277,9 @@ export const products: Product[] = [
     id: "17",
     name: "RØDE VideoMic Pro+",
     description: "Professional on-camera shotgun microphone for clear audio recording.",
-    price: 1800,
+    price: 550,
     category: "accessory",
-    image: "https://images.unsplash.com/photo-1618143357686-6b45e4f486db?q=80&w=1000",
+    image: "https://images.pexels.com/photos/1564844/pexels-photo-1564844.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "Digital Switching with Safety Channel",
@@ -295,9 +294,9 @@ export const products: Product[] = [
     id: "18",
     name: "Profoto B10 Plus",
     description: "Compact battery-powered studio flash with high output and TTL.",
-    price: 5300,
+    price: 1350,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1563319002-700a4c2fc187?q=80&w=1000",
+    image: "https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "500Ws Output",
@@ -312,9 +311,9 @@ export const products: Product[] = [
     id: "19",
     name: "Neewer LED Ring Light",
     description: "18-inch bi-color LED ring light kit with stand for portrait and video shooting.",
-    price: 1200,
+    price: 500,
     category: "lighting",
-    image: "https://images.unsplash.com/photo-1574009696517-7e6268b89714?q=80&w=1000",
+    image: "https://images.pexels.com/photos/1454661/pexels-photo-1454661.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "3200-5600K Color Temperature",
@@ -329,9 +328,9 @@ export const products: Product[] = [
     id: "20",
     name: "Adobe Photoshop Subscription",
     description: "Professional photo editing and graphic design software.",
-    price: 3600,
+    price: 1650,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1562159278-1253a58da141?q=80&w=1000",
+    image: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "Advanced Layer Controls",
@@ -346,9 +345,9 @@ export const products: Product[] = [
     id: "21",
     name: "Autel EVO II Pro",
     description: "Professional drone with 6K camera and advanced obstacle avoidance.",
-    price: 12500,
+    price: 1450,
     category: "drone",
-    image: "https://images.unsplash.com/photo-1606740256334-432a3872f1b8?q=80&w=1000",
+    image: "https://images.pexels.com/photos/169573/sky-air-view-nature-169573.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "1-inch CMOS Sensor",
@@ -363,9 +362,9 @@ export const products: Product[] = [
     id: "22",
     name: "Skylum Luminar AI",
     description: "AI-powered photo editing software with automated enhancement tools.",
-    price: 2900,
+    price: 800,
     category: "editing",
-    image: "https://images.unsplash.com/photo-1568952433726-3896e3881c65?q=80&w=1000",
+    image: "https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: false,
     features: [
       "AI Sky Replacement",
@@ -380,9 +379,9 @@ export const products: Product[] = [
     id: "23",
     name: "GoPro HERO11 Black",
     description: "Waterproof action camera with stabilization and 5.3K video.",
-    price: 2800,
+    price: 650,
     category: "camera",
-    image: "https://images.unsplash.com/photo-1569175578771-c1c1962e434d?q=80&w=1000",
+    image: "https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "5.3K60 Video",
@@ -397,9 +396,9 @@ export const products: Product[] = [
     id: "24",
     name: "Sigma 85mm f/1.4 Art",
     description: "Professional portrait lens with exceptional sharpness and bokeh.",
-    price: 3800,
+    price: 900,
     category: "lens",
-    image: "https://images.unsplash.com/photo-1610402568654-da5fdb7f3b0c?q=80&w=1000",
+    image: "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     rentalAvailable: true,
     features: [
       "f/1.4 Maximum Aperture",
@@ -412,6 +411,64 @@ export const products: Product[] = [
   }
 ];
 
+// Sample user orders for the returns page
+export const userOrders: Order[] = [
+  {
+    id: "order1",
+    customerId: "user1",
+    items: [
+      {
+        id: "item1",
+        productId: "1",
+        productName: "Canon EOS R5",
+        productImage: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        quantity: 1,
+        rentalDays: 5,
+        price: 1500,
+        orderDate: "2023-10-10",
+        returnDate: "2023-10-15",
+        returned: false
+      },
+      {
+        id: "item2",
+        productId: "3",
+        productName: "Canon RF 50mm f/1.2L USM",
+        productImage: "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        quantity: 1,
+        rentalDays: 5,
+        price: 850,
+        orderDate: "2023-10-10",
+        returnDate: "2023-10-15",
+        returned: false
+      }
+    ],
+    totalAmount: 11750,
+    orderDate: "2023-10-10",
+    status: "completed"
+  },
+  {
+    id: "order2",
+    customerId: "user1",
+    items: [
+      {
+        id: "item3",
+        productId: "2",
+        productName: "Sony a7S III",
+        productImage: "https://images.pexels.com/photos/51383/photo-camera-subject-photographer-51383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        quantity: 1,
+        rentalDays: 3,
+        price: 1200,
+        orderDate: "2023-11-05",
+        returnDate: "2023-11-08",
+        returned: false
+      }
+    ],
+    totalAmount: 3600,
+    orderDate: "2023-11-05",
+    status: "completed"
+  }
+];
+
 export function getProductById(id: string): Product | undefined {
   return products.find(product => product.id === id);
 }
@@ -419,4 +476,12 @@ export function getProductById(id: string): Product | undefined {
 export function getProductsByCategory(category: string): Product[] {
   if (category === "all") return products;
   return products.filter(product => product.category === category);
+}
+
+export function getUserOrders(userId: string): Order[] {
+  return userOrders.filter(order => order.customerId === userId);
+}
+
+export function getOrderById(orderId: string): Order | undefined {
+  return userOrders.find(order => order.id === orderId);
 }

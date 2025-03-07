@@ -6,7 +6,7 @@ import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Camera, ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
+import { Camera, ShoppingCart, Menu, X, User, LogOut, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar: React.FC = () => {
@@ -40,6 +40,7 @@ const Navbar: React.FC = () => {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Products", href: "/products" },
+    { label: "Returns", href: "/returns" },
     { label: "Contact Us", href: "/contact" }
   ];
 

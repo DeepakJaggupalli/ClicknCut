@@ -43,6 +43,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     setImageLoaded(true);
   };
 
+  // Format price display based on product category
+  const getPriceDisplay = () => {
+    if (product.category === "editing") {
+      return `₹${product.price} (full package)`;
+    }
+    return `₹${product.price}/day`;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -77,10 +85,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               </span>
             </div>
             
-            {/* Price badge - reduced prices as requested */}
+            {/* Price badge */}
             <div className="absolute top-3 right-3">
               <span className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-                ₹{(product.price >= 4000) ? Math.floor(product.price * 0.8) : product.price}/day
+                {getPriceDisplay()}
               </span>
             </div>
             
