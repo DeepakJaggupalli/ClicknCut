@@ -24,7 +24,7 @@ type Order = {
     rentalDays: number;
     price: number;
     orderDate: string;
-    returnDate?: string;  // Adding returnDate property
+    returnDate?: string;  
     returned: boolean;
   }[];
   totalAmount: number;
@@ -63,6 +63,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [orders, setOrders] = useState<Order[]>([]);
   const { toast } = useToast();
 
+  // Load cart from localStorage on initial render
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
@@ -76,8 +77,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+  // Save cart to localStorage whenever items change
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
+    // Sync cart state with items
+    setCart([...items]);
   }, [items]);
 
   const addToCart = (product: Product, quantity: number, rentalDays: number) => {
@@ -201,7 +205,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       status: "completed"
     };
 
-    setOrders([...orders, newOrder]);
+    setOrders(prev => [...prev, newOrder]);
     clearCart();
     return newOrder;
   };

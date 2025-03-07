@@ -141,13 +141,12 @@ const Login: React.FC = () => {
       <div 
         className="min-h-screen flex flex-col"
         style={{
-          background: gradients[currentGradient],
-          backgroundSize: "200% 200%",
-          transition: "background 2s ease"
+          backgroundImage: gradients[currentGradient],
+          transition: "background-image 2s ease"
         }}
       >
-        {/* Back Button */}
-        <div className="container mx-auto px-4 pt-4">
+        {/* Back Button - Fixed position so it doesn't interfere with logo */}
+        <div className="container mx-auto px-4 pt-6">
           <Button 
             variant="outline" 
             size="sm" 
@@ -166,8 +165,8 @@ const Login: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="w-full max-w-md"
           >
-            {/* Logo */}
-            <div className="text-center mb-8">
+            {/* Logo - Added more spacing from the top */}
+            <div className="text-center mb-8 mt-6">
               <Link to="/" className="inline-flex items-center justify-center">
                 <motion.div
                   initial={{ rotate: 0 }}

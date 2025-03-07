@@ -28,6 +28,7 @@ const Returns: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
   const [returnReason, setReturnReason] = useState<string>("");
   const [step, setStep] = useState<number>(1);
+  const [returnSubmitted, setReturnSubmitted] = useState(false);
 
   const handleOrderClick = (orderId: string) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -62,16 +63,19 @@ const Returns: React.FC = () => {
       return;
     }
 
-    // Simulating return process
+    setReturnSubmitted(true);
+
     toast({
       title: "Return requested",
       description: `${selectedItems.length} item(s) return requested successfully. Our team will contact you shortly.`,
     });
 
-    // Reset the form
-    setSelectedItems([]);
-    setReturnReason("");
-    setStep(1);
+    setTimeout(() => {
+      setReturnSubmitted(false);
+      setSelectedItems([]);
+      setReturnReason("");
+      setStep(1);
+    }, 3000);
   };
 
   if (!user) {
@@ -96,6 +100,35 @@ const Returns: React.FC = () => {
 
   const activeOrders = orders.filter(order => order.status === "completed");
   const returnedOrders = orders.filter(order => order.status === "returned");
+
+  if (returnSubmitted) {
+    return (
+      <div className="container mx-auto px-4 py-20">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center py-16"
+        >
+          <motion.div 
+            initial={{ scale: 0.5 }}
+            animate={{ scale: [0.5, 1.2, 1] }}
+            transition={{ duration: 0.7, times: [0, 0.5, 1] }}
+            className="rounded-full bg-green-100 p-4 w-24 h-24 mx-auto mb-6 flex items-center justify-center"
+          >
+            <CheckCircle2 className="h-12 w-12 text-green-600" />
+          </motion.div>
+          <h2 className="text-3xl font-bold mb-4">Return Request Submitted!</h2>
+          <p className="text-muted-foreground mb-8">
+            We've received your return request and will process it shortly. Our team will contact you with the next steps.
+          </p>
+          <Button onClick={() => navigate("/products")} className="mt-4">
+            Continue Shopping
+          </Button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -304,13 +337,13 @@ const Returns: React.FC = () => {
                     </div>
                     
                     <div className="mb-6">
-                      <label className="block text-sm font-medium mb-2">
+                      <label className="block text-sm font-medium mb-2 text-foreground">
                         Reason for Return
                       </label>
                       <textarea 
                         value={returnReason}
                         onChange={(e) => setReturnReason(e.target.value)}
-                        className="w-full p-3 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full p-3 border border-input bg-background rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         rows={4}
                         placeholder="Please explain why you're returning these items..."
                       />
