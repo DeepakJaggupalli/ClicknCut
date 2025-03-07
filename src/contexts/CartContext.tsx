@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@/types";
@@ -11,17 +10,38 @@ type CartItem = {
   quantity: number;
 };
 
+type Order = {
+  id: string;
+  customerId: string;
+  items: {
+    id: string;
+    productId: string;
+    productName: string;
+    productImage: string;
+    quantity: number;
+    rentalDays: number;
+    price: number;
+    orderDate: string;
+    returned: boolean;
+  }[];
+  totalAmount: number;
+  orderDate: string;
+  status: string;
+};
+
 type CartContextType = {
   items: CartItem[];
-  cart: CartItem[]; // Added cart property
+  cart: CartItem[];
   addToCart: (product: Product, quantity: number, rentalDays: number) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   updateRentalDays: (productId: string, days: number) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
-  getCartTotal: () => number; // Added getCartTotal property
+  getCartTotal: () => number;
   getItemCount: () => number;
+  checkout: () => Order;
+  orders: Order[];
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -36,33 +56,32 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const { toast } = useToast();
 
-  // Load cart from localStorage on initialization
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
         const parsedCart = JSON.parse(savedCart);
         setItems(parsedCart);
+        setCart(parsedCart);
       } catch (error) {
         console.error("Failed to parse cart from localStorage", error);
       }
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
   const addToCart = (product: Product, quantity: number, rentalDays: number) => {
     setItems(currentItems => {
-      // Check if the product is already in the cart
       const existingItemIndex = currentItems.findIndex(item => item.id === product.id);
 
       if (existingItemIndex >= 0) {
-        // Update existing item quantity
         const updatedItems = [...currentItems];
         updatedItems[existingItemIndex].quantity += quantity;
         toast({
@@ -72,7 +91,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         return updatedItems;
       } else {
-        // Add new item
         toast({
           title: "Added to cart",
           description: `${product.name} added to cart`,
@@ -135,6 +153,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearCart = () => {
     setItems([]);
+    setCart([]);
     toast({
       title: "Cart cleared",
       description: "All items have been removed from your cart",
@@ -148,7 +167,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, 0);
   };
 
-  // Add getCartTotal as an alias for getTotalPrice to fix the error
   const getCartTotal = () => {
     return getTotalPrice();
   };
@@ -157,17 +175,44 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return items.reduce((count, item) => count + item.quantity, 0);
   };
 
+  const checkout = () => {
+    const newOrder: Order = {
+      id: `order${Date.now()}`,
+      customerId: "user1",
+      items: cart.map((item) => ({
+        id: `item${Date.now()}-${item.id}`,
+        productId: item.id,
+        productName: item.name,
+        productImage: item.image,
+        quantity: item.quantity,
+        rentalDays: item.rentalDays,
+        price: item.price,
+        orderDate: new Date().toISOString().split('T')[0],
+        returned: false
+      })),
+      totalAmount: getCartTotal(),
+      orderDate: new Date().toISOString().split('T')[0],
+      status: "completed"
+    };
+
+    setOrders([...orders, newOrder]);
+    setCart([]);
+    return newOrder;
+  };
+
   const value = {
     items,
-    cart: items, // Map items to cart for backward compatibility
+    cart,
     addToCart,
     removeFromCart,
     updateQuantity,
     updateRentalDays,
     clearCart,
     getTotalPrice,
-    getCartTotal, // Add getCartTotal to the context value
+    getCartTotal,
     getItemCount,
+    checkout,
+    orders,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -1,8 +1,8 @@
-
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 import { getUserOrders } from "@/lib/data";
 import { OrderItem, Order } from "@/types";
 import { 
@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 const Returns: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
-  const [orders, setOrders] = useState<Order[]>(user ? getUserOrders(user.id) : []);
+  const { orders } = useCart();
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
   const [selectedItems, setSelectedItems] = useState<OrderItem[]>([]);
   const [returnReason, setReturnReason] = useState<string>("");

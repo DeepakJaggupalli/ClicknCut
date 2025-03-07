@@ -177,7 +177,7 @@ export const products: Product[] = [
     description: "Professional drone with Hasselblad camera system and advanced flight capabilities.",
     price: 1700,
     category: "drone",
-    image: "https://images.pexels.com/photos/775219/pexels-photo-775219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://images.pexels.com/photos/1487887/pexels-photo-1487887.jpeg",
     rentalAvailable: true,
     features: [
       "Hasselblad 4/3 CMOS Sensor",
@@ -194,7 +194,7 @@ export const products: Product[] = [
     description: "Compact sub-250g drone with professional-grade camera and obstacle avoidance.",
     price: 1100,
     category: "drone",
-    image: "https://images.pexels.com/photos/10447595/pexels-photo-10447595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://images.pexels.com/photos/2050718/pexels-photo-2050718.jpeg",
     rentalAvailable: true,
     features: [
       "1/1.3-inch CMOS Sensor",
@@ -411,7 +411,7 @@ export const products: Product[] = [
   }
 ];
 
-// Sample user orders for the returns page
+// Update the sample orders to reflect actual checkout process
 export const userOrders: Order[] = [
   {
     id: "order1",
@@ -419,52 +419,19 @@ export const userOrders: Order[] = [
     items: [
       {
         id: "item1",
-        productId: "1",
-        productName: "Canon EOS R5",
-        productImage: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        productId: "11",
+        productName: "DJI Mavic 3 Pro",
+        productImage: "https://images.pexels.com/photos/1487887/pexels-photo-1487887.jpeg",
         quantity: 1,
         rentalDays: 5,
-        price: 1500,
-        orderDate: "2023-10-10",
-        returnDate: "2023-10-15",
-        returned: false
-      },
-      {
-        id: "item2",
-        productId: "3",
-        productName: "Canon RF 50mm f/1.2L USM",
-        productImage: "https://images.pexels.com/photos/3602258/pexels-photo-3602258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        quantity: 1,
-        rentalDays: 5,
-        price: 850,
-        orderDate: "2023-10-10",
-        returnDate: "2023-10-15",
+        price: 1700,
+        orderDate: "2024-03-05",
+        returnDate: "2024-03-10",
         returned: false
       }
     ],
-    totalAmount: 11750,
-    orderDate: "2023-10-10",
-    status: "completed"
-  },
-  {
-    id: "order2",
-    customerId: "user1",
-    items: [
-      {
-        id: "item3",
-        productId: "2",
-        productName: "Sony a7S III",
-        productImage: "https://images.pexels.com/photos/51383/photo-camera-subject-photographer-51383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        quantity: 1,
-        rentalDays: 3,
-        price: 1200,
-        orderDate: "2023-11-05",
-        returnDate: "2023-11-08",
-        returned: false
-      }
-    ],
-    totalAmount: 3600,
-    orderDate: "2023-11-05",
+    totalAmount: 8500,
+    orderDate: "2024-03-05",
     status: "completed"
   }
 ];

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useCart } from "@/contexts/CartContext";
@@ -16,7 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart, getCartTotal } = useCart();
+  const { cart, removeFromCart, clearCart, getCartTotal, checkout } = useCart();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -25,18 +24,18 @@ const Cart = () => {
   const handleCheckout = () => {
     setIsProcessing(true);
     
-    // Simulate checkout process
+    // Process checkout and create order
     setTimeout(() => {
+      const newOrder = checkout();
       setIsProcessing(false);
       setOrderPlaced(true);
-      clearCart();
+      
       toast({
         title: "Order placed successfully!",
         description: "Thank you for your purchase. We'll process your order soon.",
         variant: "default",
       });
       
-      // Reset order placed state after animation completes
       setTimeout(() => {
         setOrderPlaced(false);
         navigate("/products");
