@@ -1,7 +1,7 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { getUserOrders } from "@/lib/data";
@@ -13,7 +13,8 @@ import {
   ChevronRight, 
   Calendar, 
   CheckCircle2, 
-  X 
+  X,
+  Camera
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,6 +33,28 @@ const Returns: React.FC = () => {
   const [returnReason, setReturnReason] = useState<string>("");
   const [step, setStep] = useState<number>(1);
   const [returnSubmitted, setReturnSubmitted] = useState(false);
+  const cameraRef = useRef<HTMLDivElement>(null);
+  const cameraControls = useAnimation();
+
+  // Camera animation effect
+  useEffect(() => {
+    const animateCamera = async () => {
+      while (true) {
+        await cameraControls.start({
+          rotateY: 10,
+          z: 5,
+          transition: { duration: 4, ease: "easeInOut" }
+        });
+        await cameraControls.start({
+          rotateY: -10,
+          z: -5,
+          transition: { duration: 4, ease: "easeInOut" }
+        });
+      }
+    };
+    
+    animateCamera();
+  }, [cameraControls]);
 
   const handleOrderClick = (orderId: string) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
@@ -111,7 +134,7 @@ const Returns: React.FC = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center py-16"
+          className="text-center py-16 relative"
         >
           <motion.div 
             initial={{ scale: 0.5 }}
@@ -121,6 +144,30 @@ const Returns: React.FC = () => {
           >
             <CheckCircle2 className="h-12 w-12 text-green-600" />
           </motion.div>
+          
+          {/* Animated DSLR Camera */}
+          <motion.div
+            ref={cameraRef}
+            animate={cameraControls}
+            className="absolute top-10 right-10 lg:right-32 opacity-70"
+            style={{ perspective: 1000 }}
+          >
+            <div className="relative">
+              <div className="w-16 h-12 bg-black rounded-sm"></div>
+              <div className="w-8 h-8 bg-black absolute -top-6 left-4 rounded-t-lg"></div>
+              <div className="w-20 h-2 bg-black absolute -bottom-2 left-0 rounded-b-sm"></div>
+              <div className="w-3 h-3 bg-gray-700 absolute top-3 right-3 rounded-full border-2 border-gray-500"></div>
+              <motion.div 
+                animate={{ rotateZ: [0, 180, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                className="w-5 h-5 absolute -top-3 right-2"
+              >
+                <div className="w-5 h-1 bg-gray-700 absolute top-2"></div>
+                <div className="w-1 h-5 bg-gray-700 absolute left-2"></div>
+              </motion.div>
+            </div>
+          </motion.div>
+          
           <h2 className="text-3xl font-bold mb-4">Return Request Submitted!</h2>
           <p className="text-muted-foreground mb-8">
             We've received your return request and will process it shortly. Our team will contact you with the next steps.
@@ -141,7 +188,7 @@ const Returns: React.FC = () => {
       </Helmet>
 
       <div className="container mx-auto px-4 py-16 mt-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -151,6 +198,29 @@ const Returns: React.FC = () => {
             <p className="text-muted-foreground mb-8">
               Manage your equipment returns and exchanges. Our hassle-free process makes returning quick and simple.
             </p>
+
+            {/* Animated DSLR Camera */}
+            <motion.div
+              ref={cameraRef}
+              animate={cameraControls}
+              className="absolute top-0 right-5 lg:right-0 opacity-70"
+              style={{ perspective: 1000 }}
+            >
+              <div className="relative">
+                <div className="w-16 h-12 bg-black rounded-sm"></div>
+                <div className="w-8 h-8 bg-black absolute -top-6 left-4 rounded-t-lg"></div>
+                <div className="w-20 h-2 bg-black absolute -bottom-2 left-0 rounded-b-sm"></div>
+                <div className="w-3 h-3 bg-gray-700 absolute top-3 right-3 rounded-full border-2 border-gray-500"></div>
+                <motion.div 
+                  animate={{ rotateZ: [0, 180, 360] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  className="w-5 h-5 absolute -top-3 right-2"
+                >
+                  <div className="w-5 h-1 bg-gray-700 absolute top-2"></div>
+                  <div className="w-1 h-5 bg-gray-700 absolute left-2"></div>
+                </motion.div>
+              </div>
+            </motion.div>
 
             {step === 1 ? (
               <Tabs defaultValue="active" className="w-full">
