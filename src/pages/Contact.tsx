@@ -50,6 +50,8 @@ const Contact: React.FC = () => {
               <a 
                 href="mailto:djaggupa@gitam.in" 
                 className="text-primary hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 djaggupa@gitam.in
               </a>
@@ -62,8 +64,10 @@ const Contact: React.FC = () => {
               <h3 className="text-lg font-medium mb-2">Call Us</h3>
               <p className="text-muted-foreground mb-4">Mon-Fri from 9AM to 6PM</p>
               <a 
-                href="tel:9550366399" 
+                href="https://wa.me/919550366399" 
                 className="text-primary hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 +91 9550366399
               </a>
@@ -140,7 +144,7 @@ const Contact: React.FC = () => {
               <h2 className="text-2xl font-bold mb-6">Find Us</h2>
               <div className="h-[400px] rounded-lg overflow-hidden border border-border">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800.237522536619!2d83.37185207573845!3d17.737193283066898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3943471d26771d%3A0x5c9f582957124521!2sGITAM%20University!5e0!3m2!1sen!2sin!4v1720442125962!5m2!1sen!2sin" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.9242563022553!2d83.37488461539352!3d17.781649287839705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395b1d31491a4d%3A0x8b129d81ef9bc2fa!2sGandhi%20Institute%20of%20Technology%2C%20Visakhapatnam!5e0!3m2!1sen!2sin!4v1693546925856!5m2!1sen!2sin"
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
