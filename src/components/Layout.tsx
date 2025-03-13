@@ -9,15 +9,15 @@ const Layout: React.FC = () => {
   const location = useLocation();
   
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <Navbar />
       <Suspense fallback={
-        <div className="flex-grow flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="flex-grow flex items-center justify-center py-20">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
         </div>
       }>
         <motion.main 
-          className="flex-grow"
+          className="flex-grow w-full"
           key={location.pathname}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
