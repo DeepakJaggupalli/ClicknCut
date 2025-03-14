@@ -18,38 +18,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { toast } = useToast();
   const [showAddAnimation, setShowAddAnimation] = React.useState(false);
   const [imageLoaded, setImageLoaded] = React.useState(false);
-  const [imageError, setImageError] = React.useState(false);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Show simplified animation
+    // Show enhanced 3D animation
     setShowAddAnimation(true);
     
-    // Add to cart immediately
-    addToCart(product, 1, 1);
-    
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
-    
-    // Reset animation after a short delay
+    // Wait for animation to complete before adding to cart
     setTimeout(() => {
+      addToCart(product, 1, 1);
       setShowAddAnimation(false);
-    }, 300);
+      
+      toast({
+        title: "Added to cart",
+        description: `${product.name} has been added to your cart.`,
+      });
+    }, 800);
   };
 
   // Handle image loading
   const handleImageLoad = () => {
     setImageLoaded(true);
-  };
-  
-  // Handle image error
-  const handleImageError = () => {
-    setImageLoaded(true);
-    setImageError(true);
   };
 
   // Format price display based on product category
@@ -64,32 +55,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
       className="group relative"
     >
       <Link to={`/products/${product.id}`} className="block h-full">
         <div className="relative bg-card rounded-lg overflow-hidden border border-border h-full transition-all duration-300 hover:border-primary/50 hover:shadow-md group-hover:translate-y-[-5px]">
-          <div className="aspect-[4/3] overflow-hidden bg-secondary relative">
+          <div className="aspect-[4/3] overflow-hidden bg-black relative">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-secondary">
-                <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
               </div>
             )}
-            
-            {!imageError ? (
-              <img
-                src={product.image}
-                alt={product.name}
-                className={`w-full h-full object-cover transition-all duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                loading="lazy"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-muted">
-                <span className="text-muted-foreground text-sm">No image</span>
-              </div>
-            )}
+            <img
+              src={product.image}
+              alt={product.name}
+              className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              onLoad={handleImageLoad}
+              onError={() => {
+                // Fallback for failed images
+                console.error(`Failed to load image for ${product.name}`);
+                setImageLoaded(true); // Stop showing loader even if image fails
+              }}
+            />
             
             {/* Category badge */}
             <div className="absolute top-3 left-3">
@@ -105,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
               </span>
             </div>
             
-            {/* Simplified quick actions overlay */}
+            {/* Quick actions overlay */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-3 transition-all duration-300">
               <Button
                 variant="secondary"
@@ -157,18 +144,45 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
         </div>
       </Link>
       
-      {/* Simplified Add to Cart Animation */}
+      {/* Enhanced 3D Add to Cart Animation */}
       <AnimatePresence>
         {showAddAnimation && (
           <motion.div 
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1.2 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.3 }}
+            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+            initial={{ opacity: 0, scale: 0.8, rotateY: 0 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1.2, 
+              rotateY: 360,
+              z: 50 
+            }}
+            exit={{ 
+              opacity: 0, 
+              scale: 0.8,
+              y: -100,
+              rotateY: 0
+            }}
+            transition={{ 
+              duration: 0.8,
+              ease: "easeInOut"
+            }}
           >
-            <div className="bg-primary text-white rounded-full p-2 shadow-lg">
-              <ShoppingCart className="h-6 w-6" />
+            <div className="bg-primary text-white rounded-full p-3 shadow-lg relative">
+              <ShoppingCart className="h-8 w-8" />
+              <motion.div
+                className="absolute -inset-2 rounded-full"
+                initial={{ opacity: 0.5, scale: 1 }}
+                animate={{ 
+                  opacity: 0, 
+                  scale: 1.5,
+                  border: "2px solid rgba(255, 0, 0, 0.5)"
+                }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: "easeOut",
+                  repeat: 1
+                }}
+              />
             </div>
           </motion.div>
         )}
