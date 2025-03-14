@@ -13,30 +13,30 @@ const FeaturedProducts: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true, margin: "-100px" }}
             className="inline-block bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium mb-3"
           >
             Featured Equipment
           </motion.span>
           
           <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            viewport={{ once: true, margin: "-100px" }}
             className="text-3xl md:text-4xl font-bold mb-4"
           >
             Our Most Popular Gear
           </motion.h2>
           
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px" }}
             className="text-muted-foreground max-w-2xl mx-auto"
           >
             Discover our most sought-after cameras, lenses, and accessories. 
